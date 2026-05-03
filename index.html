@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MISE — Michelin Flavour. Supermarket Prices.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────
+   TOKENS
+───────────────────────────────────────── */
+:root {
+  --c:   #0E1208;   /* deep ink */
+  --c2:  #1B2612;   /* forest */
+  --c3:  #2E4220;   /* mid green */
+  --a:   #D4622A;   /* terracotta */
+  --a2:  #E8875C;   /* light terra */
+  --g:   #BFA46A;   /* gold */
+  --cr:  #F9F5EC;   /* warm cream */
+  --cr2: #F1EBD8;   /* deeper cream */
+  --cr3: #E4DAC3;   /* border cream */
+  --mu:  #7A7060;   /* muted */
+  --wh:  #ffffff;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--cr);
+  color: var(--c);
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 400;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ─────────────────────────────────────────
+   GRAIN TEXTURE
+───────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 1000;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: .022;
+  mix-blend-mode: multiply;
+}
+
+/* ─────────────────────────────────────────
+   NAV
+───────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 800;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 5%;
+  background: rgba(249,245,236,.96);
+  border-bottom: 1px solid var(--cr3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-weight: 700;
+  color: var(--c); text-decoration: none;
+  letter-spacing: .08em;
+}
+.nav-logo sup {
+  font-size: .5rem; vertical-align: super;
+  color: var(--a); letter-spacing: .2em;
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 600; text-transform: uppercase;
+  margin-left: .2rem;
+}
+.nav-right { display: flex; align-items: center; gap: 2rem; }
+.nav-link {
+  font-size: .75rem; font-weight: 500; letter-spacing: .08em;
+  color: var(--mu); text-decoration: none;
+  text-transform: uppercase; transition: color .2s;
+}
+.nav-link:hover { color: var(--c); }
+.nav-cta {
+  background: var(--c); color: var(--cr);
+  font-size: .7rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; padding: .65rem 1.5rem;
+  border-radius: 2px; text-decoration: none; border: none;
+  cursor: pointer; font-family: 'Instrument Sans', sans-serif;
+  transition: background .2s, color .2s;
+}
+.nav-cta:hover { background: var(--c2); }
+
+/* ─────────────────────────────────────────
+   HERO
+───────────────────────────────────────── */
+#hero {
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1fr 1fr;
+  padding-top: 64px;
+  overflow: hidden;
+}
+.hero-left {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 7rem 5% 6rem 6%;
+  position: relative;
+}
+.hero-left::after {
+  content: '';
+  position: absolute; right: 0; top: 10%; bottom: 10%;
+  width: 1px; background: var(--cr3);
+}
+.hero-pill {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: var(--cr2); border: 1px solid var(--cr3);
+  border-radius: 20px; padding: .35rem .9rem;
+  font-size: .65rem; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--mu);
+  margin-bottom: 2.2rem; width: fit-content;
+}
+.hero-pill-dot {
+  width: 6px; height: 6px; background: var(--a);
+  border-radius: 50%;
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+.hero-h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.2rem, 5.5vw, 5rem);
+  font-weight: 600; line-height: 1.05;
+  letter-spacing: -.02em; color: var(--c);
+  margin-bottom: 1.6rem;
+}
+.hero-h1 em {
+  font-style: italic; font-weight: 300;
+  color: var(--c3);
+}
+.hero-sub {
+  font-size: 1rem; color: var(--mu); line-height: 1.85;
+  max-width: 44ch; margin-bottom: 2.8rem;
+}
+.hero-sub strong { color: var(--c); font-weight: 500; }
+
+/* email form */
+.signup-wrap { position: relative; max-width: 420px; }
+.signup-input {
+  width: 100%; padding: 1rem 140px 1rem 1.1rem;
+  border: 1.5px solid var(--c); border-radius: 3px;
+  font-size: .9rem; font-family: 'Instrument Sans', sans-serif;
+  background: var(--wh); color: var(--c); outline: none;
+  transition: border-color .2s;
+}
+.signup-input:focus { border-color: var(--c3); }
+.signup-input::placeholder { color: #C0B8A8; }
+.signup-btn {
+  position: absolute; right: 0; top: 0; bottom: 0;
+  background: var(--c3); color: var(--wh);
+  font-size: .65rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; padding: 0 1.2rem;
+  border: none; border-radius: 0 2px 2px 0; cursor: pointer;
+  font-family: 'Instrument Sans', sans-serif;
+  transition: background .2s; white-space: nowrap;
+}
+.signup-btn:hover { background: var(--c); }
+.signup-note {
+  font-size: .7rem; color: var(--mu); margin-top: .7rem;
+  display: flex; align-items: center; gap: .4rem;
+}
+.signup-note span { color: var(--c3); font-weight: 500; }
+.success-banner {
+  display: none; background: #EAF2EA;
+  border: 1px solid #A8D4A8; border-radius: 3px;
+  padding: .85rem 1.1rem; font-size: .85rem; color: #1A4A1A;
+  font-weight: 500; margin-top: .75rem;
+}
+.success-banner.show { display: block; }
+
+.hero-trust {
+  display: flex; gap: 2rem; margin-top: 2.5rem;
+  padding-top: 2.5rem; border-top: 1px solid var(--cr3);
+  flex-wrap: wrap;
+}
+.trust-item { text-align: left; }
+.trust-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem; font-weight: 700;
+  color: var(--c); line-height: 1; display: block;
+}
+.trust-label { font-size: .65rem; font-weight: 500; letter-spacing: .08em; color: var(--mu); text-transform: uppercase; }
+
+/* hero right — editorial food mosaic */
+.hero-right {
+  background: var(--c2);
+  display: grid;
+  grid-template-rows: 55% 45%;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+.hc { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; }
+.hc::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(14,18,8,.85) 0%, transparent 60%); pointer-events: none; }
+.hc.main { grid-column: 1 / 3; grid-row: 1; }
+.hc.main .hc-emoji { font-size: 8rem; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-65%); }
+.hc .hc-emoji { font-size: 4.5rem; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-62%); }
+.hc-body { position: relative; z-index: 2; }
+.hc-tag {
+  display: inline-block; background: rgba(212,98,42,.85);
+  color: #fff; font-size: .55rem; font-weight: 700;
+  letter-spacing: .15em; text-transform: uppercase;
+  padding: .22rem .6rem; border-radius: 20px;
+  margin-bottom: .5rem;
+}
+.hc-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem; font-weight: 700; color: #fff; line-height: 1.15;
+}
+.hc.main .hc-name { font-size: 2rem; }
+.hc-price { font-size: .75rem; color: rgba(255,255,255,.65); margin-top: .2rem; }
+.hc-sep { width: 1px; background: rgba(255,255,255,.08); }
+.hc-sep-h { height: 1px; background: rgba(255,255,255,.08); grid-column: 1/3; }
+
+/* divider between hero cards */
+.hero-right .hc:nth-child(3) { border-right: 1px solid rgba(255,255,255,.07); }
+
+/* ─────────────────────────────────────────
+   MARQUEE STRIP
+───────────────────────────────────────── */
+.strip {
+  background: var(--a); padding: .9rem 0;
+  overflow: hidden;
+}
+.strip-track {
+  display: flex; gap: 0;
+  animation: marquee 24s linear infinite;
+  white-space: nowrap;
+}
+.strip-item {
+  padding: 0 2.5rem; font-size: .65rem; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(255,255,255,.85);
+  display: flex; align-items: center; gap: 2.5rem;
+}
+.strip-item::after { content: '◆'; font-size: .4rem; color: rgba(255,255,255,.4); }
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ─────────────────────────────────────────
+   SECTIONS — SHARED
+───────────────────────────────────────── */
+.sec { padding: 8rem 6%; }
+.sec-sm { padding: 5rem 6%; }
+.eyebrow {
+  font-size: .62rem; font-weight: 600; letter-spacing: .28em;
+  text-transform: uppercase; color: var(--a);
+  display: block; margin-bottom: 1rem;
+}
+.heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-weight: 600; line-height: 1.1; color: var(--c);
+  letter-spacing: -.01em; margin-bottom: 1.25rem;
+}
+.heading em { font-style: italic; font-weight: 300; color: var(--c3); }
+.body-text { font-size: .95rem; color: var(--mu); line-height: 1.88; }
+
+/* ─────────────────────────────────────────
+   PROMISE SECTION
+───────────────────────────────────────── */
+#promise {
+  background: var(--c);
+  padding: 7rem 6%;
+}
+.promise-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  border: 1px solid rgba(255,255,255,.07);
+}
+.promise-cell {
+  padding: 3.5rem 2.5rem;
+  border-right: 1px solid rgba(255,255,255,.07);
+  transition: background .3s;
+}
+.promise-cell:last-child { border: none; }
+.promise-cell:hover { background: rgba(255,255,255,.03); }
+.promise-icon { font-size: 2.2rem; margin-bottom: 1.5rem; display: block; }
+.promise-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-weight: 700; color: var(--cr);
+  margin-bottom: .75rem; line-height: 1.2;
+}
+.promise-title em { font-style: italic; font-weight: 300; color: var(--g); }
+.promise-text { font-size: .85rem; color: rgba(249,245,236,.5); line-height: 1.85; }
+#promise .eyebrow { color: var(--g); text-align: center; margin-bottom: .75rem; }
+#promise .heading {
+  color: var(--cr); text-align: center; margin-bottom: 3.5rem;
+  max-width: 500px; margin-left: auto; margin-right: auto;
+}
+#promise .heading em { color: rgba(191,164,106,.8); }
+
+/* ─────────────────────────────────────────
+   RECIPE SHOWCASE
+───────────────────────────────────────── */
+#recipes { background: var(--cr2); }
+.recipe-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 3.5rem;
+}
+.recipe-scroller {
+  display: grid; grid-template-columns: repeat(5,1fr);
+  gap: 1.25rem;
+}
+.rcard {
+  background: var(--wh); border-radius: 8px;
+  border: 1px solid var(--cr3); overflow: hidden;
+  cursor: pointer; transition: transform .25s, box-shadow .25s;
+}
+.rcard:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(14,18,8,.1); }
+.rcard-img {
+  height: 150px; display: flex; align-items: center;
+  justify-content: center; font-size: 3.8rem;
+  position: relative;
+}
+.rcard-img.bg1 { background: linear-gradient(145deg,#2E4220,#3D5C2A); }
+.rcard-img.bg2 { background: linear-gradient(145deg,#C4622D,#D4824E); }
+.rcard-img.bg3 { background: linear-gradient(145deg,#B8842A,#C89840); }
+.rcard-img.bg4 { background: linear-gradient(145deg,#1A3A1A,#2E4A2A); }
+.rcard-img.bg5 { background: linear-gradient(145deg,#8B4513,#A0522D); }
+.rcard-day {
+  position: absolute; top: .6rem; left: .6rem;
+  background: rgba(0,0,0,.45); color: rgba(255,255,255,.85);
+  font-size: .52rem; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; padding: .2rem .55rem; border-radius: 20px;
+}
+.rcard-star {
+  position: absolute; top: .6rem; right: .6rem;
+  background: var(--g); color: var(--c);
+  font-size: .5rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; padding: .2rem .55rem; border-radius: 20px;
+}
+.rcard-body { padding: 1rem; }
+.rcard-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem; font-weight: 700; line-height: 1.25;
+  color: var(--c); margin-bottom: .5rem;
+}
+.rcard-foot { display: flex; justify-content: space-between; align-items: center; }
+.rcard-price { font-size: .8rem; font-weight: 600; color: var(--c3); }
+.rcard-time  { font-size: .68rem; color: var(--mu); }
+.rcard-btn {
+  display: block; width: 100%; margin-top: .75rem;
+  padding: .5rem; background: transparent;
+  border: 1.5px solid var(--cr3); border-radius: 2px;
+  color: var(--mu); font-size: .62rem; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  cursor: pointer; font-family: 'Instrument Sans', sans-serif;
+  transition: all .2s;
+}
+.rcard-btn:hover { border-color: var(--c3); color: var(--c3); }
+.recipe-week-total {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 2rem; padding: 1.25rem 1.5rem;
+  background: var(--wh); border: 1px solid var(--cr3); border-radius: 6px;
+}
+.rwt-text { font-size: .88rem; color: var(--mu); }
+.rwt-text strong { color: var(--c); font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; }
+.rwt-cta {
+  background: var(--a); color: #fff; font-size: .68rem;
+  font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  padding: .7rem 1.8rem; border-radius: 2px; border: none;
+  cursor: pointer; font-family: 'Instrument Sans', sans-serif;
+  transition: background .2s; text-decoration: none; display: inline-block;
+}
+.rwt-cta:hover { background: var(--a2); }
+
+/* ─────────────────────────────────────────
+   FEATURE RECIPE (full)
+───────────────────────────────────────── */
+#feature { background: var(--wh); }
+.feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+.feature-visual {
+  position: relative; border-radius: 12px; overflow: hidden;
+  background: linear-gradient(145deg, var(--c2), var(--c3));
+  min-height: 500px; display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem;
+}
+.feature-emoji { font-size: 9rem; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-65%); }
+.feature-badge {
+  position: relative; z-index: 2;
+  background: rgba(0,0,0,.55); backdrop-filter: blur(8px);
+  border-radius: 6px; padding: .9rem 1.1rem;
+}
+.fb-tag { font-size: .55rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--g); display: block; margin-bottom: .3rem; }
+.fb-name { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; color: #fff; line-height: 1.15; }
+.fb-price { font-size: .78rem; color: rgba(255,255,255,.6); margin-top: .2rem; }
+
+.technique-tags { display: flex; gap: .5rem; flex-wrap: wrap; margin: 1.5rem 0; }
+.ttag {
+  font-size: .6rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; padding: .28rem .7rem; border-radius: 2px;
+}
+.ttag-g { background: #E4EFE4; color: var(--c2); }
+.ttag-t { background: #FAEDE6; color: var(--a); }
+.ttag-y { background: var(--cr2); color: #7A5C10; }
+
+.ing-list { margin: 1.5rem 0; }
+.ing-row {
+  display: flex; gap: .75rem; align-items: center;
+  padding: .6rem 0; border-bottom: 1px solid var(--cr3); font-size: .88rem;
+}
+.ing-row:last-child { border: none; }
+.ing-n { flex: 1; color: var(--c); }
+.ing-s { font-size: .7rem; color: var(--mu); font-style: italic; }
+.ing-p { font-weight: 600; color: var(--c3); white-space: nowrap; }
+.total-band {
+  background: var(--cr2); border-radius: 6px;
+  padding: 1rem 1.25rem; display: flex; justify-content: space-between; align-items: center;
+  margin-top: 1rem; border: 1px solid var(--cr3);
+}
+.tb-label { font-size: .75rem; color: var(--mu); display: block; }
+.tb-save  { font-size: .72rem; color: var(--a); font-weight: 600; display: block; margin-top: .15rem; }
+.tb-price { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: var(--c3); }
+
+.technique-box {
+  margin-top: 1.25rem; background: #F4EFE2; border-left: 3px solid var(--g);
+  border-radius: 0 6px 6px 0; padding: 1.1rem 1.25rem;
+}
+.tech-label { font-size: .58rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--g); display: block; margin-bottom: .5rem; }
+.tech-text { font-size: .85rem; color: #5A4A28; line-height: 1.82; }
+
+.view-recipe-btn {
+  display: block; width: 100%; margin-top: 1.5rem;
+  padding: .95rem; background: var(--c); color: var(--cr);
+  border: none; border-radius: 3px; font-size: .7rem;
+  font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  cursor: pointer; font-family: 'Instrument Sans', sans-serif;
+  transition: background .2s;
+}
+.view-recipe-btn:hover { background: var(--c2); }
+
+/* ─────────────────────────────────────────
+   STORE COMPARE
+───────────────────────────────────────── */
+#stores { background: var(--cr2); }
+.stores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.store-list { margin-top: 2rem; }
+.store-row {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.25rem; margin-bottom: .75rem;
+  background: var(--wh); border-radius: 6px;
+  border: 1.5px solid var(--cr3); transition: border-color .2s;
+}
+.store-row.best { border-color: var(--c3); background: #EAF2EA; }
+.store-row:hover { border-color: var(--c); }
+.store-name { font-weight: 600; font-size: .88rem; flex: 1; color: var(--c); }
+.store-best-tag {
+  font-size: .55rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; background: var(--c3); color: #fff;
+  padding: .18rem .5rem; border-radius: 20px;
+}
+.store-bar-wrap { width: 80px; height: 6px; background: var(--cr3); border-radius: 3px; overflow: hidden; }
+.store-bar { height: 100%; border-radius: 3px; }
+.sbar-best { background: var(--c3); }
+.sbar-mid  { background: var(--g);  }
+.sbar-high { background: var(--a);  }
+.store-price { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 700; color: var(--c); min-width: 50px; text-align: right; }
+.store-note { font-size: .72rem; color: var(--mu); margin-top: 1.25rem; line-height: 1.7; }
+
+.save-calc { background: var(--c); border-radius: 12px; padding: 2.5rem; }
+.save-calc .eyebrow { color: rgba(191,164,106,.7); margin-bottom: .75rem; }
+.save-calc-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; color: var(--cr); margin-bottom: .75rem; line-height: 1.2; }
+.save-calc-title em { font-style: italic; font-weight: 300; }
+.save-calc p { font-size: .85rem; color: rgba(249,245,236,.55); line-height: 1.8; margin-bottom: 1.75rem; }
+.range-label { font-size: .65rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; color: rgba(249,245,236,.5); margin-bottom: .65rem; display: block; }
+input[type=range] { width: 100%; accent-color: var(--c3); margin-bottom: .85rem; display: block; }
+.calc-result { display: flex; justify-content: space-between; align-items: center; }
+.calc-people { font-size: .85rem; color: rgba(249,245,236,.6); }
+.calc-amount { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 700; color: var(--cr); }
+.calc-note { font-size: .68rem; color: rgba(249,245,236,.38); margin-top: .25rem; display: block; }
+
+/* ─────────────────────────────────────────
+   HOW IT WORKS
+───────────────────────────────────────── */
+#how { background: var(--wh); }
+.how-header { text-align: center; max-width: 540px; margin: 0 auto 4.5rem; }
+.how-steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px; background: var(--cr3); border-radius: 10px; overflow: hidden; }
+.how-step { background: var(--cr); padding: 3rem 2rem; position: relative; transition: background .25s; }
+.how-step:hover { background: #fff; }
+.hs-num { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 700; color: rgba(14,18,8,.05); line-height: 1; position: absolute; top: 1rem; right: 1.25rem; }
+.hs-icon { font-size: 2rem; display: block; margin-bottom: 1.25rem; }
+.hs-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; color: var(--c); margin-bottom: .75rem; }
+.hs-text { font-size: .85rem; color: var(--mu); line-height: 1.85; }
+
+/* ─────────────────────────────────────────
+   TESTIMONIALS
+───────────────────────────────────────── */
+#testimonials { background: var(--c2); padding: 7rem 6%; }
+#testimonials .eyebrow { color: rgba(191,164,106,.6); text-align: center; display: block; }
+#testimonials .heading { color: var(--cr); text-align: center; margin-bottom: 3.5rem; }
+#testimonials .heading em { color: rgba(191,164,106,.8); }
+.testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+.testi-card { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); padding: 2.2rem; transition: background .25s; }
+.testi-card:hover { background: rgba(255,255,255,.07); }
+.testi-stars { color: var(--g); font-size: .85rem; letter-spacing: .12em; display: block; margin-bottom: 1rem; }
+.testi-quote { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem; line-height: 1.65; color: rgba(249,245,236,.88); display: block; margin-bottom: 1.25rem; }
+.testi-attr { font-size: .7rem; color: rgba(249,245,236,.38); letter-spacing: .04em; }
+.testi-attr strong { color: rgba(249,245,236,.7); font-weight: 500; }
+.testi-note { text-align: center; font-size: .75rem; color: rgba(249,245,236,.28); margin-top: 2.5rem; font-style: italic; }
+
+/* ─────────────────────────────────────────
+   FAQ
+───────────────────────────────────────── */
+#faq { background: var(--cr); }
+.faq-inner { max-width: 760px; margin: 0 auto; }
+.faq-header { text-align: center; margin-bottom: 3.5rem; }
+.faq-item { border-bottom: 1px solid var(--cr3); }
+.faq-item:first-of-type { border-top: 1px solid var(--cr3); }
+.faq-q {
+  width: 100%; background: none; border: none; text-align: left;
+  padding: 1.4rem 0; font-size: .95rem; font-weight: 500;
+  color: var(--c); cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+  font-family: 'Instrument Sans', sans-serif; gap: 1rem;
+}
+.faq-q .faq-icon { font-size: 1.1rem; color: var(--mu); flex-shrink: 0; transition: transform .25s; }
+.faq-q[aria-expanded="true"] .faq-icon { transform: rotate(45deg); }
+.faq-a { font-size: .88rem; color: var(--mu); line-height: 1.88; padding-bottom: 1.4rem; display: none; max-width: 62ch; }
+.faq-a.open { display: block; }
+
+/* ─────────────────────────────────────────
+   FINAL CTA
+───────────────────────────────────────── */
+#cta {
+  background: var(--cr2);
+  padding: 8rem 6%;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+#cta::before {
+  content: 'MISE';
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+  font-family: 'Cormorant Garamond', serif; font-size: 28vw; font-weight: 700;
+  color: transparent; -webkit-text-stroke: 1.5px rgba(14,18,8,.04);
+  pointer-events: none; user-select: none; white-space: nowrap;
+}
+.cta-inner { position: relative; z-index: 2; max-width: 600px; margin: 0 auto; }
+#cta .eyebrow { text-align: center; }
+#cta .heading { text-align: center; font-size: clamp(2.2rem, 5vw, 4rem); }
+#cta p { font-size: .95rem; color: var(--mu); margin: 1rem auto 2.5rem; max-width: 44ch; line-height: 1.88; }
+.cta-form { display: flex; max-width: 460px; margin: 0 auto; }
+.cta-input {
+  flex: 1; padding: 1rem 1.1rem; border: 1.5px solid var(--c); border-right: none;
+  border-radius: 3px 0 0 3px; font-size: .9rem; background: var(--wh);
+  font-family: 'Instrument Sans', sans-serif; color: var(--c); outline: none;
+}
+.cta-input::placeholder { color: #C0B8A8; }
+.cta-btn {
+  background: var(--c); color: var(--cr); font-size: .68rem; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase; padding: 1rem 1.4rem;
+  border: none; border-radius: 0 3px 3px 0; cursor: pointer; white-space: nowrap;
+  font-family: 'Instrument Sans', sans-serif; transition: background .2s;
+}
+.cta-btn:hover { background: var(--c2); }
+.cta-perks { display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem; flex-wrap: wrap; }
+.cta-perk { font-size: .72rem; color: var(--mu); display: flex; align-items: center; gap: .35rem; }
+.waitlist-live { font-size: .75rem; color: var(--mu); margin-top: 1.25rem; }
+.waitlist-live strong { color: var(--c3); }
+
+/* ─────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────── */
+footer { background: var(--c); padding: 4rem 6%; }
+.footer-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 3rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,.07); }
+.footer-brand .fl {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem; font-weight: 700; color: var(--cr); display: block; margin-bottom: .4rem;
+}
+.footer-brand p { font-size: .78rem; color: rgba(249,245,236,.35); max-width: 26ch; line-height: 1.65; }
+.footer-col h4 { font-size: .58rem; letter-spacing: .22em; text-transform: uppercase; color: rgba(249,245,236,.28); margin-bottom: 1.1rem; font-weight: 600; }
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: .55rem; }
+.footer-col a { font-size: .8rem; color: rgba(249,245,236,.4); text-decoration: none; transition: color .2s; }
+.footer-col a:hover { color: var(--cr); }
+.footer-bottom { padding-top: 2rem; display: flex; justify-content: space-between; font-size: .68rem; color: rgba(249,245,236,.2); flex-wrap: wrap; gap: 1rem; }
+
+/* ─────────────────────────────────────────
+   MODAL
+───────────────────────────────────────── */
+.modal-bg {
+  position: fixed; inset: 0; background: rgba(14,18,8,.75);
+  z-index: 950; display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity .3s;
+  backdrop-filter: blur(4px);
+}
+.modal-bg.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--wh); border-radius: 12px;
+  max-width: 560px; width: 92%; max-height: 88vh; overflow-y: auto;
+  padding: 2.5rem; position: relative;
+  transform: translateY(20px); transition: transform .3s;
+}
+.modal-bg.open .modal { transform: none; }
+.modal-x { position: absolute; top: 1.25rem; right: 1.25rem; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--mu); line-height: 1; }
+.modal-emoji { font-size: 3.5rem; display: block; text-align: center; margin-bottom: .75rem; }
+.modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; text-align: center; color: var(--c); margin-bottom: .25rem; }
+.modal-sub { font-size: .82rem; color: var(--mu); text-align: center; margin-bottom: 1.5rem; }
+.modal-section-title { font-size: .58rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--a); display: block; margin: 1.25rem 0 .75rem; }
+.method-step { display: flex; gap: .85rem; margin-bottom: .85rem; font-size: .85rem; line-height: 1.75; color: var(--c); }
+.mn { background: var(--c3); color: #fff; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .6rem; font-weight: 700; flex-shrink: 0; margin-top: .12rem; }
+.modal-add {
+  display: block; width: 100%; margin-top: 1.5rem;
+  padding: .9rem; background: var(--c3); color: #fff; border: none; border-radius: 3px;
+  font-size: .7rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  cursor: pointer; font-family: 'Instrument Sans', sans-serif; transition: background .2s;
+}
+.modal-add:hover { background: var(--c2); }
+</style>
+</head>
+<body>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <button class="modal-x" onclick="closeModal()">✕</button>
+    <span class="modal-emoji" id="mEmoji"></span>
+    <h2 class="modal-title" id="mTitle"></h2>
+    <p class="modal-sub" id="mSub"></p>
+    <span class="modal-section-title">The Chef Technique — Step by Step</span>
+    <div id="mMethod"></div>
+    <span class="modal-section-title">Ingredients & Prices</span>
+    <div id="mIngs"></div>
+    <button class="modal-add" onclick="joinFromModal()">Join Waitlist to Unlock All Recipes →</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">MISE<sup>Coming Soon</sup></a>
+  <div class="nav-right">
+    <a href="#how" class="nav-link">How It Works</a>
+    <a href="#stores" class="nav-link">Pricing</a>
+    <a href="#faq" class="nav-link">FAQ</a>
+    <a href="#cta" class="nav-cta">Join Waitlist</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-pill">
+      <span class="hero-pill-dot"></span>
+      Now taking early access sign-ups
+    </div>
+    <h1 class="hero-h1">
+      Cook <em>Michelin-quality</em><br>meals for under £2.
+    </h1>
+    <p class="hero-sub">
+      Every week: seven restaurant-grade recipes, an optimised shopping list, and the exact supermarket to visit for the <strong>best price in Britain.</strong> No chef training. No expensive ingredients. Just extraordinary food.
+    </p>
+   <div class="signup-wrap">
+      <input type="email" class="signup-input" id="heroEmailInput" placeholder="Your email address" required>
+      <button class="signup-btn" onclick="handleHeroSignup()">Get Access</button>
+    </div>
+<div style="margin-top: 12px; display: flex; align-items: flex-start; gap: 8px;">
+  <input type="checkbox" id="heroConsent" style="margin-top: 3px; cursor: pointer;">
+  <label for="heroConsent" style="font-size: 0.75rem; color: var(--mu); line-height: 1.4; cursor: pointer;">
+    I agree to the <a href="#privacy" style="color: var(--c); text-decoration: underline;">Privacy Policy</a> and to receive early access updates.
+  </label>
+</div>
+    <div class="success-banner" id="heroSuccess">
+      🎉 You're on the list! You'll get first access — and your first month completely free.
+    </div>
+    <p class="signup-note">
+      <span id="liveCount">50 people</span> already signed up &nbsp;·&nbsp; No card needed
+    </p>
+    <div class="hero-trust">
+      <div class="trust-item">
+        <span class="trust-num">£1.85</span>
+        <span class="trust-label">Cheapest recipe</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-num">7</span>
+        <span class="trust-label">Recipes per week</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-num">4</span>
+        <span class="trust-label">Stores compared</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-num">89%</span>
+        <span class="trust-label">Cheaper vs dining out</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <!-- main card -->
+    <div class="hc main">
+      <div class="hc-emoji">🍝</div>
+      <div class="hc-body">
+        <span class="hc-tag">⭐ Chef's Pick · Monday</span>
+        <p class="hc-name">Saffron &amp; Prawn<br>Seafood Linguine</p>
+        <p class="hc-price">£1.85 per serving &nbsp;·&nbsp; Aldi &nbsp;·&nbsp; 30 min</p>
+      </div>
+    </div>
+    <!-- sub cards -->
+    <div class="hc">
+      <div class="hc-emoji">🥩</div>
+      <div class="hc-body">
+        <span class="hc-tag">Tuesday</span>
+        <p class="hc-name">Duck Leg<br>Confit</p>
+        <p class="hc-price">£2.40 / serving</p>
+      </div>
+    </div>
+    <div class="hc">
+      <div class="hc-emoji">🐟</div>
+      <div class="hc-body">
+        <span class="hc-tag">Friday</span>
+        <p class="hc-name">Salmon<br>Beurre Blanc</p>
+        <p class="hc-price">£2.10 / serving</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="strip" aria-hidden="true">
+  <div class="strip-track" id="stripTrack"></div>
+</div>
+
+<!-- PROMISE -->
+<section id="promise">
+  <span class="eyebrow">What makes MISE different</span>
+  <h2 class="heading" style="color:var(--cr);text-align:center;max-width:580px;margin:0 auto 3.5rem">Everything a great dinner needs. <em>Nothing it doesn't.</em></h2>
+  <div class="promise-grid">
+    <div class="promise-cell">
+      <span class="promise-icon">🎓</span>
+      <h3 class="promise-title">Real <em>chef technique</em></h3>
+      <p class="promise-text">Every recipe teaches one professional skill — fond, beurre noisette, confit, emulsification. Skills that change how everything you cook tastes, not just this week's meal.</p>
+    </div>
+    <div class="promise-cell">
+      <span class="promise-icon">🛒</span>
+      <h3 class="promise-title">Smartest <em>shopping list</em></h3>
+      <p class="promise-text">We compare Aldi, Lidl, Tesco and Sainsbury's every Saturday. Your list automatically shows the cheapest store for your exact basket that week — down to the penny.</p>
+    </div>
+    <div class="promise-cell">
+      <span class="promise-icon">⭐</span>
+      <h3 class="promise-title">Restaurant food. <em>Supermarket bill.</em></h3>
+      <p class="promise-text">The average MISE meal costs £1.85 per serving. The same dish in a restaurant costs £18–£22. You eat better. You spend 90% less. Every single week.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RECIPE GRID -->
+<section id="recipes" class="sec">
+  <div class="recipe-header">
+    <div>
+      <span class="eyebrow">This Week's Menu</span>
+      <h2 class="heading" style="margin-bottom:0">Five dinners. <em>One smart shop.</em></h2>
+    </div>
+    <p class="body-text" style="max-width:28ch;text-align:right">Click any recipe to see the full technique and shopping list.</p>
+  </div>
+  <div class="recipe-scroller" id="recipeGrid"></div>
+  <div class="recipe-week-total">
+    <p class="rwt-text">7 dinners for 2 people: <strong id="weekTotal">£18.50</strong> &nbsp;·&nbsp; Save an estimated <strong style="color:var(--a)">£124</strong> vs eating out this week</p>
+    <a href="#cta" class="rwt-cta">Get the Full List →</a>
+  </div>
+</section>
+
+<!-- FEATURE RECIPE -->
+<section id="feature" class="sec">
+  <div style="text-align:center;margin-bottom:3.5rem">
+    <span class="eyebrow">In Detail</span>
+    <h2 class="heading" style="text-align:center">See exactly <em>what you get.</em></h2>
+  </div>
+  <div class="feature-grid">
+    <div class="feature-visual">
+      <div class="feature-emoji">🍝</div>
+      <div class="feature-badge">
+        <span class="fb-tag">⭐ Saturday · Week 1 · Chef's Pick</span>
+        <p class="fb-name">Saffron &amp; Prawn Linguine</p>
+        <p class="fb-price">Restaurant price: £22 &nbsp;·&nbsp; Your cost: £1.85 per serving</p>
+      </div>
+    </div>
+    <div>
+      <div class="technique-tags">
+        <span class="ttag ttag-g">Fond technique</span>
+        <span class="ttag ttag-t">30 minutes</span>
+        <span class="ttag ttag-y">Pro plating</span>
+        <span class="ttag ttag-g">Serves 2</span>
+      </div>
+      <p class="body-text" style="margin-bottom:1.5rem">This exact dish is on the menu at coastal bistros for £22 a head. The reason it tastes so good isn't the ingredients — it's one technique nobody teaches home cooks. We do, in three clear sentences.</p>
+      <span class="eyebrow" style="margin-bottom:.65rem">Shopping List — Aldi (cheapest this week)</span>
+      <div class="ing-list">
+        <div class="ing-row"><span class="ing-n">Linguine 500g</span><span class="ing-s">Aldi own-brand</span><span class="ing-p">£0.49</span></div>
+        <div class="ing-row"><span class="ing-n">Raw King Prawns 200g</span><span class="ing-s">Aldi Seafood</span><span class="ing-p">£2.49</span></div>
+        <div class="ing-row"><span class="ing-n">Saffron (pinch)</span><span class="ing-s">Aldi Spices</span><span class="ing-p">£0.28</span></div>
+        <div class="ing-row"><span class="ing-n">Cherry Tomatoes 250g</span><span class="ing-s">Aldi Produce</span><span class="ing-p">£0.59</span></div>
+        <div class="ing-row"><span class="ing-n">Garlic, white wine, parsley</span><span class="ing-s">Aldi</span><span class="ing-p">£0.85</span></div>
+      </div>
+      <div class="total-band">
+        <div>
+          <span class="tb-label">Total for 2 people</span>
+          <span class="tb-save">Save £40.30 vs ordering this in a restaurant</span>
+        </div>
+        <span class="tb-price">£3.70</span>
+      </div>
+      <div class="technique-box">
+        <span class="tech-label">🎓 The Chef Technique: The Fond</span>
+        <p class="tech-text">Before anything else, sauté the prawn shells in oil until they turn deep orange. This builds a fond — a concentrated flavour base used in every professional kitchen. It's one step, it takes four minutes, and it's why this dish tastes like it costs ten times more than it does.</p>
+      </div>
+      <button class="view-recipe-btn" onclick="openModal('🍝','Saffron & Prawn Linguine','30 min · Serves 2 · £1.85 per serving',0)">View Full Recipe &amp; All Steps →</button>
+    </div>
+  </div>
+</section>
+
+<!-- STORE COMPARE -->
+<section id="stores" class="sec">
+  <div class="stores-grid">
+    <div>
+      <span class="eyebrow">Weekly Store Comparison</span>
+      <h2 class="heading">We find the <em>cheapest shop</em> for you.</h2>
+      <p class="body-text">Every Saturday we check your exact ingredient list across four major supermarkets and tell you where to go. This week, Aldi wins — but it changes. We always know.</p>
+      <div class="store-list">
+        <div class="store-row best">
+          <span class="store-name">Aldi</span>
+          <span class="store-best-tag">Best this week</span>
+          <div class="store-bar-wrap"><div class="store-bar sbar-best" style="width:78%"></div></div>
+          <span class="store-price">£18.50</span>
+        </div>
+        <div class="store-row">
+          <span class="store-name">Lidl</span>
+          <div style="flex:1"></div>
+          <div class="store-bar-wrap"><div class="store-bar sbar-mid" style="width:85%"></div></div>
+          <span class="store-price">£20.10</span>
+        </div>
+        <div class="store-row">
+          <span class="store-name">Tesco</span>
+          <div style="flex:1"></div>
+          <div class="store-bar-wrap"><div class="store-bar sbar-high" style="width:93%"></div></div>
+          <span class="store-price">£22.70</span>
+        </div>
+        <div class="store-row">
+          <span class="store-name">Sainsbury's</span>
+          <div style="flex:1"></div>
+          <div class="store-bar-wrap"><div class="store-bar sbar-high" style="width:100%"></div></div>
+          <span class="store-price">£24.30</span>
+        </div>
+      </div>
+      <p class="store-note">Prices verified every Saturday morning. Aldi, Lidl, Tesco & Sainsbury's checked via live online basket. Your list always uses the cheapest available.</p>
+    </div>
+    <div class="save-calc">
+      <span class="eyebrow">Your Annual Saving</span>
+      <h3 class="save-calc-title">How much could you <em>save?</em></h3>
+      <p>Move the slider to see your estimated saving vs eating out 5 nights a week.</p>
+      <span class="range-label">People in your household</span>
+      <input type="range" min="1" max="6" value="2" id="peopleRange">
+      <div class="calc-result">
+        <span class="calc-people" id="peopleLabel">2 people</span>
+        <span class="calc-amount" id="savingNum">£1,092</span>
+      </div>
+      <span class="calc-note">estimated annual saving vs restaurants &amp; meal kits</span>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="sec">
+  <div class="how-header">
+    <span class="eyebrow">The MISE Method</span>
+    <h2 class="heading" style="text-align:center">Three steps to <em>extraordinary food.</em></h2>
+    <p class="body-text" style="text-align:center">No chef experience. No expensive kit. No wasted Sundays in the kitchen.</p>
+  </div>
+  <div class="how-steps">
+    <div class="how-step">
+      <span class="hs-num">01</span>
+      <span class="hs-icon">📬</span>
+      <h3 class="hs-title">Saturday morning, your menu arrives</h3>
+      <p class="hs-text">Five seasonal recipes — designed around what's cheap and what's in season — land in your inbox before 7am. Each one looks and tastes like a restaurant dish. Each one costs under £2.50 a head.</p>
+    </div>
+    <div class="how-step">
+      <span class="hs-num">02</span>
+      <span class="hs-icon">🧾</span>
+      <h3 class="hs-title">One-click shopping list</h3>
+      <p class="hs-text">Your full shopping list — with quantities, aisle notes, and the cheapest supermarket for every ingredient — is ready the moment you open the app. We've already done the comparison. You just shop.</p>
+    </div>
+    <div class="how-step">
+      <span class="hs-num">03</span>
+      <span class="hs-icon">🍽️</span>
+      <h3 class="hs-title">Cook. Eat. Learn something real.</h3>
+      <p class="hs-text">Every recipe walks you through one proper culinary technique. After a few weeks you'll notice everything you cook tasting better — because the skills carry over. That's the MISE difference.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <span class="eyebrow">Early Testers</span>
+  <h2 class="heading">People who tried <em>Week 1.</em></h2>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <span class="testi-stars">★★★★★</span>
+      <span class="testi-quote">"I made the saffron linguine for my girlfriend and she genuinely thought I'd ordered from a restaurant. When I told her it cost £3.70 for both of us she actually didn't believe me."</span>
+      <p class="testi-attr"><strong>Tom R.</strong> — Beta tester, Sheffield</p>
+    </div>
+    <div class="testi-card">
+      <span class="testi-stars">★★★★★</span>
+      <span class="testi-quote">"The duck confit was the first time I've made something and thought — I'd genuinely pay for this. The technique explained in two lines changed how I cook everything, not just this recipe."</span>
+      <p class="testi-attr"><strong>Gemma L.</strong> — Beta tester, Bristol</p>
+    </div>
+    <div class="testi-card">
+      <span class="testi-stars">★★★★★</span>
+      <span class="testi-quote">"The Aldi vs Tesco comparison saved me £6 on one shop. Over a year that's serious money. The recipes are incredible but honestly the shopping list alone is worth signing up for."</span>
+      <p class="testi-attr"><strong>Marcus D.</strong> — Beta tester, London</p>
+    </div>
+  </div>
+  <p class="testi-note"></p>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="sec">
+  <div class="faq-inner">
+    <div class="faq-header">
+      <span class="eyebrow" style="text-align:center;display:block">Questions</span>
+      <h2 class="heading" style="text-align:center">Everything you <em>need to know.</em></h2>
+    </div>
+    <div id="faqList"></div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="cta">
+  <div class="cta-inner">
+    <span class="eyebrow">Limited Early Access</span>
+    <h2 class="heading">Your best meals<br>start <em>this Saturday.</em></h2>
+    <p>Join the waitlist and get your first month completely free when we launch. No card required. Cancel any time.</p>
+    
+    <div class="signup-wrap" style="margin: 0 auto; justify-content: center;">
+      <input type="email" class="signup-input" id="ctaInput" placeholder="your@email.com" required>
+      <button class="signup-btn" onclick="handleCtaSignup()">Claim Free Month</button>
+    </div>
+
+    <div style="margin-top: 12px; display: flex; align-items: flex-start; gap: 8px; max-width: 460px; margin-left: auto; margin-right: auto; text-align: left;">
+      <input type="checkbox" id="ctaConsent" style="margin-top: 3px; cursor: pointer;">
+      <label for="heroConsent" style="font-size: 0.75rem; color: #000000; line-height: 1.4; cursor: pointer;">
+      I agree to the <a href="#privacy" style="color: #000000; text-decoration: underline; font-weight: 600;">Privacy Policy</a> and to receive early access updates.
+      </label>
+    </div>
+
+    <div class="success-banner" id="ctaSuccess" style="max-width:460px;margin:.75rem auto 0">
+      🎉 You're on the list! First month free when we launch.
+    </div>
+
+    <div class="success-banner" id="ctaSuccess" style="max-width:460px;margin:.75rem auto 0">
+      🎉 You're on the list! First month free when we launch.
+    </div>
+    
+    <div class="cta-perks">
+      <span class="cta-perk">✦ First month free</span>
+      <span class="cta-perk">✦ Founding member pricing</span>
+      <span class="cta-perk">✦ Access before the public</span>
+      <span class="cta-perk">✦ No card needed</span>
+    </div>
+    <p class="waitlist-live"><strong id="ctaCount">50</strong> people already on the waitlist</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="fl">MISE.</span>
+      <p>Michelin flavour at market prices.<br>Launching in the UK, 2027.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#recipes">This Week's Recipes</a></li>
+        <li><a href="#stores">Store Comparison</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About MISE</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="mailto:hello@mise.co.uk">hello@mise.co.uk</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Follow Along</h4>
+      <ul>
+        <li><a href="#">TikTok</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">YouTube</a></li>
+        <li><a href="#">Newsletter</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2027 MISE Ltd. All rights reserved.</span>
+    <span>Built in the UK 🇬🇧 · Tested in real kitchens</span>
+  </div>
+</footer>
+
+<script>
+/* ─── DATA ─── */
+const recipes = [
+  { day:'Saturday',    emoji:'🍝', name:'Saffron Prawn Linguine',       price:1.85, time:'30 min', bg:'bg1', star:true,
+    steps:['Peel the prawns and keep every shell. Sauté the shells in a little oil until they turn deep burnt-orange. This builds your fond — the flavour base that makes this taste like a restaurant dish.','Bloom a pinch of saffron in 2 tbsp of warm water for 5 minutes. This is the detail restaurants don\'t put in recipe cards.','In the same pan, cook garlic until golden, deglaze with white wine, reduce by half. Add the saffron water and halved cherry tomatoes.','Cook linguine 90 seconds under the package time. Finish it in the sauce, adding pasta water by the spoonful to emulsify into a glossy coating.','Twirl the pasta high with tongs. Spoon sauce underneath, drape prawns over the top. Crack black pepper. Finish with a drizzle of parsley oil.'],
+    ings:[{n:'Linguine 500g',s:'Aldi',p:'£0.49'},{n:'King Prawns 200g',s:'Aldi Seafood',p:'£2.49'},{n:'Saffron (pinch)',s:'Aldi Spices',p:'£0.28'},{n:'Cherry Tomatoes',s:'Aldi',p:'£0.59'},{n:'Garlic, wine, parsley',s:'Aldi',p:'£0.85'}]
+  },
+  { day:'Tuesday',   emoji:'🥩', name:'Duck Leg Confit',               price:2.40, time:'3 hrs',  bg:'bg2', star:true,
+    steps:['Salt the duck legs generously the night before. Cover and refrigerate. This dry brine penetrates the meat deeply — the restaurant kitchen never skips this.','Place legs in a small roasting tin. They render their own fat. Cook at 140°C for 2.5 hours. This is confit — fat-poaching at low temperature. The result is impossibly tender.','With 30 minutes to go, cook Puy lentils with duck fat, fresh thyme, and diced shallots. The lentils absorb the fat and become something entirely different.','Blast the duck skin under a hot grill for exactly 4 minutes. You want lacquered, shatteringly crisp skin. This is the texture contrast that makes the dish.','Rest 10 minutes. Plate lentils in a pool, lean the duck against them. The leg should never lie flat — height is flavour in plating.'],
+    ings:[{n:'Duck Legs ×2',s:'Aldi',p:'£2.40'},{n:'Puy Lentils 250g',s:'Aldi',p:'£0.89'},{n:'Shallots & thyme',s:'Aldi',p:'£0.55'},{n:'Red wine vinegar',s:'Aldi',p:'£0.35'},{n:'Salt & pepper',s:'Pantry',p:'£0.05'}]
+  },
+  { day:'Wednesday', emoji:'🐔', name:'Chicken Fricassée',             price:1.60, time:'45 min', bg:'bg3', star:false,
+    steps:['Season chicken thighs. Place skin-down in a cold pan, bring to medium-high. Don\'t touch for 8 minutes. You\'re building a dark, golden fond. This is your only sauce ingredient.','Remove the chicken. The pan looks almost burnt — perfect. Add mushrooms directly into the fond and cook until every drop of water has evaporated and they are deeply golden.','Add shallots, tarragon, then deglaze with white wine. Return the chicken, lid on, 25 minutes at medium-low.','Pull off the heat. Stir in crème fraîche. Never let cream boil — it splits. Off the heat, it becomes a velvet sauce.','Serve over pearl barley. The barley absorbs the sauce. Tear over fresh tarragon. Crack black pepper generously.'],
+    ings:[{n:'Chicken Thighs ×4',s:'Aldi',p:'£2.20'},{n:'Chestnut Mushrooms',s:'Aldi',p:'£0.79'},{n:'Crème Fraîche 200ml',s:'Aldi',p:'£0.55'},{n:'Tarragon & Shallots',s:'Aldi',p:'£0.45'},{n:'White Wine 100ml',s:'Aldi',p:'£0.39'}]
+  },
+  { day:'Thursday',  emoji:'🥦', name:'Charred Broccoli & Gnocchi',   price:1.20, time:'25 min', bg:'bg4', star:false,
+    steps:['Halve the broccoli florets. Coat in oil, place cut-side down in a screaming-hot dry pan. No water. No steam. Pure contact heat. Leave for 3 minutes without touching.','Boil gnocchi in heavily salted water until they float, plus 30 seconds. They should be just slightly resistant.','In the same gnocchi pan, cook butter over medium heat until it turns nut-brown and smells of hazelnuts. Beurre noisette. This is the restaurant trick that costs nothing.','Toss everything together in the brown butter. Season very aggressively — gnocchi needs more salt than you think.','Shave Parmesan with a vegetable peeler. Add chilli flakes and lemon zest. The acid lifts everything.'],
+    ings:[{n:'Gnocchi 500g',s:'Aldi',p:'£0.79'},{n:'Broccoli (head)',s:'Aldi',p:'£0.45'},{n:'Butter 50g',s:'Aldi',p:'£0.25'},{n:'Parmesan 40g',s:'Aldi',p:'£0.55'},{n:'Chilli & lemon',s:'Pantry',p:'£0.22'}]
+  },
+  { day:'Friday',    emoji:'🐟', name:'Pan-Roasted Salmon & Capers',  price:2.10, time:'20 min', bg:'bg5', star:true,
+    steps:['Pat the salmon skin completely dry with kitchen paper. Season the flesh only — never the skin before cooking. Salt on skin draws moisture out and prevents it crisping.','Press skin flat against a cold pan. Turn on medium-high. The fish heats with the pan, cooking evenly rather than seizing. Do not move it.','After 4–5 minutes the flesh will be opaque two-thirds of the way up. Flip once. Cook 90 seconds. Remove and rest — the heat carries through.','In the same pan: shallots, white wine, reduce to a syrup. Off the heat, whisk in cold butter cube by cube. Add capers. This is beurre blanc.','Spoon the sauce onto the plate first. Place the salmon skin-up so it stays crisp. Scatter dill and a squeeze of lemon.'],
+    ings:[{n:'Salmon Fillets ×2',s:'Aldi',p:'£3.20'},{n:'Capers 30g',s:'Aldi',p:'£0.45'},{n:'Butter 40g',s:'Aldi',p:'£0.20'},{n:'Shallot & white wine',s:'Aldi',p:'£0.35'},{n:'Dill & lemon',s:'Aldi',p:'£0.25'}]
+  }
+];
+
+const faqs = [
+  {q:'When does MISE launch?', a:'We\'re targeting Q3 2027. Everyone on the waitlist gets notified first and receives their first month completely free — no payment details needed until you\'re ready.'},
+  {q:'Do I need cooking experience?', a:'None at all. Every recipe explains the why behind each step, not just the what. You\'ll pick up real techniques naturally as you cook them.'},
+  {q:'How accurate are the supermarket prices?', a:'We verify prices every Saturday morning. Aldi and Lidl are checked in-store. Tesco and Sainsbury\'s are pulled from live online baskets. Everything updates weekly.'},
+  {q:'What if I don\'t have an Aldi nearby?', a:'Every week we list all four supermarkets with their prices. You always see your best option — whichever store you use.'},
+  {q:'How much does it cost?', a:'A free tier with 2 recipes per week will always be available. The full experience — 5 recipes, all store comparisons, 500+ recipe archive — will be less than the cost of one coffee per week.'},
+  {q:'Can I cancel any time?', a:'Yes, always. No contracts, no exit fees, no dark patterns. We want you to stay because MISE is worth it — not because leaving is difficult.'},
+];
+
+/* ─── MARQUEE ─── */
+const strip = document.getElementById('stripTrack');
+const items = ['5 recipes every week','Aldi vs Lidl vs Tesco vs Sainsbury\'s','Under £2 per serving','Real chef technique','New menu every Saturday morning','Join the waitlist today'];
+[...items,...items,...items,...items].forEach(t => {
+  const d = document.createElement('div'); d.className = 'strip-item'; d.textContent = t; strip.appendChild(d);
+});
+
+/* ─── RENDER RECIPES ─── */
+const grid = document.getElementById('recipeGrid');
+let total = 0;
+recipes.forEach((r,i) => {
+  total += r.price * 2;
+  grid.innerHTML += `
+    <div class="rcard">
+      <div class="rcard-img ${r.bg}">
+        <span class="rcard-day">${r.day}</span>
+        ${r.star ? '<span class="rcard-star">Chef\'s Pick</span>' : ''}
+        ${r.emoji}
+      </div>
+      <div class="rcard-body">
+        <p class="rcard-name">${r.name}</p>
+        <div class="rcard-foot">
+          <span class="rcard-price">£${r.price.toFixed(2)}/serving</span>
+          <span class="rcard-time">⏱ ${r.time}</span>
+        </div>
+        <button class="rcard-btn" onclick="openModal('${r.emoji}','${r.name}','${r.time} · Serves 2 · £${r.price.toFixed(2)}/serving',${i})">See Recipe →</button>
+      </div>
+    </div>`;
+});
+document.getElementById('weekTotal').textContent = '£' + total.toFixed(2);
+
+/* ─── RENDER FAQ ─── */
+const faqList = document.getElementById('faqList');
+faqs.forEach((f,i) => {
+  faqList.innerHTML += `
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(${i})" aria-expanded="false" id="fq${i}">
+        ${f.q} <span class="faq-icon">+</span>
+      </button>
+      <p class="faq-a" id="fa${i}">${f.a}</p>
+    </div>`;
+});
+
+function toggleFaq(i) {
+  const btn = document.getElementById('fq'+i);
+  const ans = document.getElementById('fa'+i);
+  const open = btn.getAttribute('aria-expanded') === 'true';
+  btn.setAttribute('aria-expanded', !open);
+  ans.classList.toggle('open', !open);
+}
+
+/* ─── CALCULATOR ─── */
+document.getElementById('peopleRange').addEventListener('input', function() {
+  const n = +this.value;
+  document.getElementById('peopleLabel').textContent = n + (n===1?' person':' people');
+  document.getElementById('savingNum').textContent = '£' + Math.round(n * 546).toLocaleString();
+});
+
+/* ─── SIGNUP COUNT ─── */
+/* ─── SIGNUP & GOOGLE SHEETS ─── */
+
+// PASTE YOUR GOOGLE WEB APP URL BETWEEN THE QUOTES BELOW
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw7NcPtm7TF-EWVTWMd3n6uXEQJYsO23Dl677wqUepb2GDzfksc2thKUyqJ4ROwuuHw1g/exec';
+
+let baseOffset = 50; 
+let sheetCount = 0;
+
+// 1. Fetch real number from Sheet
+async function getLiveCount() {
+  try {
+    const response = await fetch(SCRIPT_URL);
+    const data = await response.json();
+    if (data.count !== undefined) {
+      sheetCount = data.count;
+      updateDisplay();
+    }
+  } catch (err) {
+    console.log("Using fallback offset");
+    updateDisplay();
+  }
+}
+
+// 2. Update both counters on the page
+function updateDisplay() {
+  const total = baseOffset + sheetCount;
+  
+  // Updates the top counter: "247 people already signed up"
+  const lc = document.getElementById('liveCount');
+  if (lc) lc.textContent = total + ' people';
+  
+  // Updates your bottom counter: "247 people already on the waitlist"
+  const cc = document.getElementById('ctaCount');
+  if (cc) cc.textContent = total; 
+}
+
+// 3. Add +1 immediately when user clicks button
+function bumpCount() {
+  sheetCount++;
+  updateDisplay();
+}
+
+// Start the check when page loads
+getLiveCount();
+
+function handleHeroSignup() {
+  const input = document.querySelector('.signup-input');
+  const checkbox = document.getElementById('heroConsent'); // Find the checkbox
+  const email = input.value;
+  const btn = document.querySelector('.signup-btn');
+
+  // 1. Basic email check
+  if(!email.includes('@')) {
+    alert("Please enter a valid email.");
+    return;
+  }
+
+  // 2. THE LOCK: This stops the code if the box IS NOT checked
+  if(!checkbox.checked) {
+    alert("Please agree to the privacy policy to continue.");
+    return; // This "return" kills the function so the fetch never happens
+  }
+
+  // If they passed the checks above, the code continues...
+  btn.textContent = 'Saving...';
+  btn.disabled = true;
+
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors', 
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `Email=${encodeURIComponent(email)}`
+  })
+  .then(() => {
+    document.getElementById('heroSuccess').classList.add('show');
+    input.disabled = true;
+    btn.textContent = '✓ On the list!';
+    btn.style.background = '#1A4A1A';
+    bumpCount();
+  });
+}
+
+// Allow "Enter" key to submit
+document.querySelector('.signup-input').addEventListener('keydown', e => { 
+  if(e.key==='Enter') handleHeroSignup(); 
+});
+
+function handleCtaSignup() {
+  const input = document.getElementById('ctaInput');
+  const checkbox = document.getElementById('ctaConsent');
+  const email = input.value;
+  const btn = document.querySelector('#cta .signup-btn');
+
+  // 1. Validation
+  if(!email.includes('@')) {
+    alert("Please enter a valid email.");
+    return;
+  }
+
+  // 2. GDPR Check
+  if(!checkbox.checked) {
+    alert("Please agree to the privacy policy to continue.");
+    return;
+  }
+
+  btn.textContent = 'Saving...';
+  btn.disabled = true;
+
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `Email=${encodeURIComponent(email)}`
+  })
+  .then(() => {
+    document.getElementById('ctaSuccess').classList.add('show');
+    input.disabled = true;
+    btn.textContent = '✓ Claimed!';
+    btn.style.background = '#1A4A1A';
+    bumpCount();
+  })
+  .catch(err => {
+    console.error('Error!', err.message);
+    btn.textContent = 'Error';
+    btn.disabled = false;
+  });
+}
+
+</script>
+</body>
+<section id="privacy" style="padding: 60px 20px; background: var(--cr2); font-family: 'Instrument Sans'; font-size: 0.9rem; color: var(--c2);">
+  <div style="max-width: 600px; margin: 0 auto;">
+    <h2 style="font-family: 'Cormorant Garamond';">Privacy Policy</h2>
+    <p><strong>Effective Date:</strong> May 2026</p>
+    <p>At MISE, we only collect your email address to notify you about our launch and send meal-planning tips. We store this data securely in Google Sheets via Google Cloud.</p>
+    <p><strong>Your Rights:</strong> You can ask us to delete your email at any time by emailing [Your Email Address]. We do not sell your data to third parties.</p>
+  </div>
+</section>
+</html>
