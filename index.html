@@ -608,6 +608,87 @@ footer { background: var(--c); padding: 4rem 6%; }
   cursor: pointer; font-family: 'Instrument Sans', sans-serif; transition: background .2s;
 }
 .modal-add:hover { background: var(--c2); }
+
+/* ─────────────────────────────────────────
+   MOBILE RESPONSIVENESS
+───────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Stack the Hero section vertically */
+  #hero {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .hero-left {
+    padding: 6rem 6% 3rem;
+    border-right: none;
+  }
+  .hero-left::after { display: none; }
+  
+  /* Adjust the Hero food mosaic for small screens */
+  .hero-right {
+    grid-template-rows: 300px 200px;
+    height: 500px;
+  }
+  .hc.main .hc-emoji { font-size: 5rem; }
+  
+  /* Stack the Promise grid (Skills/Store/Price) */
+  .promise-grid {
+    grid-template-columns: 1fr;
+  }
+  .promise-cell {
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  /* Recipe Grid: Change from 5 columns to 2 columns */
+  .recipe-scroller {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .rcard-img { height: 120px; font-size: 2.5rem; }
+
+  /* Feature section: Image on top, text below */
+  .feature-grid, .stores-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  /* How It Works: Stack the steps */
+  .how-steps {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Testimonials: Stack the cards */
+  .testi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Navigation: Hide links to keep it clean, or stack them */
+  .nav-right .nav-link { display: none; } /* Keeps only the CTA on mobile */
+  
+  /* Adjust headings for mobile */
+  .hero-h1 { font-size: 2.5rem; }
+  .heading { font-size: 2rem; }
+}
+
+/* Extra fix for very small phones */
+@media (max-width: 480px) {
+  .recipe-scroller {
+    grid-template-columns: 1fr; /* Single column recipes on tiny phones */
+  }
+  .cta-form {
+    flex-direction: column;
+  }
+  .cta-input {
+    border-right: 1.5px solid var(--c);
+    border-radius: 3px;
+    margin-bottom: 10px;
+  }
+  .cta-btn {
+    border-radius: 3px;
+  }
+}
+
 </style>
 </head>
 <body>
