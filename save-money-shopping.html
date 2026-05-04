@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Save Money Shopping — MISE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1208;
+  --paper: #f5f0e8;
+  --cream: #ede7d9;
+  --gold: #c8922a;
+  --gold2: #e8b84b;
+  --rust: #b84c2a;
+  --sage: #3d5c3a;
+  --muted: #7a6e5f;
+  --rule: rgba(26,18,8,.12);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* ── NOISE TEXTURE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 999;
+  opacity: .025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ── MASTHEAD ── */
+.masthead {
+  border-bottom: 3px double var(--ink);
+  padding: 1.2rem 6%;
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--paper);
+}
+.masthead-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  font-weight: 900; letter-spacing: .02em;
+  text-transform: uppercase;
+}
+.masthead-issue {
+  font-size: .65rem; font-weight: 500; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--muted);
+}
+.masthead-rule { font-size: .7rem; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
+
+/* ── HERO ── */
+.hero {
+  padding: 5rem 6% 4rem;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 4rem;
+  align-items: end;
+  border-bottom: 1px solid var(--rule);
+}
+.hero-kicker {
+  font-size: .62rem; font-weight: 500; letter-spacing: .3em; text-transform: uppercase;
+  color: var(--rust); border-top: 2px solid var(--rust); padding-top: .6rem;
+  display: inline-block; margin-bottom: 1.8rem;
+}
+.hero-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.5rem, 7vw, 7rem);
+  font-weight: 900; line-height: .95; letter-spacing: -.02em;
+  color: var(--ink);
+}
+.hero-headline em {
+  font-style: italic; font-weight: 400; color: var(--gold);
+  display: block;
+}
+.hero-intro {
+  font-size: 1.05rem; line-height: 1.9; color: var(--muted);
+  margin-top: 2rem; max-width: 52ch;
+}
+.hero-side {
+  display: flex; flex-direction: column; gap: 1.5rem;
+  padding-left: 3rem; border-left: 1px solid var(--rule);
+}
+.hero-stat {
+  padding-bottom: 1.5rem; border-bottom: 1px solid var(--rule);
+}
+.hero-stat:last-child { border: none; padding: 0; }
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem; font-weight: 900; color: var(--sage);
+  line-height: 1; display: block;
+}
+.stat-label { font-size: .78rem; color: var(--muted); margin-top: .3rem; line-height: 1.5; }
+
+/* ── RULE DIVIDER ── */
+.rule-div {
+  display: flex; align-items: center; gap: 1.2rem;
+  padding: .8rem 6%; border-bottom: 1px solid var(--rule);
+  background: var(--cream);
+}
+.rule-label {
+  font-size: .6rem; font-weight: 600; letter-spacing: .28em;
+  text-transform: uppercase; color: var(--muted); white-space: nowrap;
+}
+.rule-line { flex: 1; height: 1px; background: var(--rule); }
+.rule-diamond { color: var(--gold); font-size: .6rem; }
+
+/* ── MAIN CONTENT ── */
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 0 6%;
+  border-bottom: 1px solid var(--rule);
+}
+.content-col {
+  padding: 3.5rem 3rem 3.5rem 0;
+  border-right: 1px solid var(--rule);
+}
+.content-col:last-child { border-right: none; padding-right: 0; padding-left: 3rem; }
+.content-col:nth-child(2) { padding-left: 3rem; }
+
+.tip-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem; font-weight: 900; color: var(--cream);
+  line-height: 1; display: block; margin-bottom: .5rem;
+  -webkit-text-stroke: 1.5px var(--rule);
+}
+.tip-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem; font-weight: 700; color: var(--ink);
+  line-height: 1.2; margin-bottom: 1rem;
+}
+.tip-title em { font-style: italic; color: var(--gold); }
+.tip-body { font-size: .88rem; line-height: 1.95; color: var(--muted); }
+.tip-body strong { color: var(--ink); font-weight: 500; }
+
+/* ── CALLOUT BANNER ── */
+.callout {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 4rem 6%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+  border-bottom: 1px solid var(--rule);
+}
+.callout-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 900; line-height: 1.1; color: var(--paper);
+}
+.callout-headline em { font-style: italic; color: var(--gold2); }
+.callout-body { font-size: .92rem; line-height: 1.9; color: rgba(245,240,232,.55); }
+.callout-items { display: flex; flex-direction: column; gap: 1.2rem; }
+.callout-item {
+  display: flex; gap: 1rem; align-items: flex-start;
+  padding-bottom: 1.2rem; border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.callout-item:last-child { border: none; padding: 0; }
+.callout-icon {
+  width: 2.2rem; height: 2.2rem; border-radius: 50%;
+  background: rgba(200,146,42,.15); border: 1px solid rgba(200,146,42,.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .9rem; flex-shrink: 0;
+}
+.callout-item-text strong {
+  display: block; font-size: .82rem; font-weight: 500;
+  color: var(--paper); margin-bottom: .2rem; letter-spacing: .02em;
+}
+.callout-item-text span { font-size: .78rem; color: rgba(245,240,232,.45); line-height: 1.6; }
+
+/* ── WIDE TIPS ── */
+.wide-tips {
+  padding: 0 6%;
+  border-bottom: 1px solid var(--rule);
+}
+.wide-tip {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+  padding: 2.8rem 0;
+  border-bottom: 1px solid var(--rule);
+  transition: background .3s;
+  cursor: default;
+}
+.wide-tip:last-child { border: none; }
+.wide-tip:hover { background: var(--cream); margin: 0 -6%; padding-left: 6%; padding-right: 6%; }
+.wide-tip-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem; font-weight: 900; color: var(--rule);
+  -webkit-text-stroke: 1px var(--gold);
+  line-height: 1;
+}
+.wide-tip-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem; font-weight: 700; color: var(--ink);
+}
+.wide-tip-body { font-size: .86rem; line-height: 1.9; color: var(--muted); }
+.wide-tip-tag {
+  display: inline-block; font-size: .55rem; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase;
+  padding: .2rem .6rem; border-radius: 2px;
+  margin-bottom: .6rem;
+}
+.tag-gold { background: #f5edd9; color: var(--gold); }
+.tag-sage { background: #dde8dd; color: var(--sage); }
+.tag-rust { background: #f5e0da; color: var(--rust); }
+
+/* ── SAVINGS TABLE ── */
+.table-section {
+  padding: 4rem 6%;
+  border-bottom: 1px solid var(--rule);
+  background: var(--cream);
+}
+.table-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 2rem;
+}
+.table-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem; font-weight: 700;
+}
+.table-note { font-size: .78rem; color: var(--muted); }
+.savings-table {
+  width: 100%; border-collapse: collapse;
+}
+.savings-table th {
+  font-size: .6rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--muted); text-align: left; padding: .75rem 1rem;
+  border-bottom: 2px solid var(--ink);
+}
+.savings-table td {
+  padding: 1rem; font-size: .88rem; color: var(--ink);
+  border-bottom: 1px solid var(--rule);
+}
+.savings-table tr:last-child td { border: none; }
+.savings-table tr:hover td { background: rgba(200,146,42,.04); }
+.saving-val { font-weight: 600; color: var(--sage); }
+.saving-year { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--rust); }
+
+/* ── QUOTE PULLOUT ── */
+.pullout {
+  padding: 5rem 15%;
+  text-align: center;
+  border-bottom: 1px solid var(--rule);
+}
+.pullout-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  font-weight: 400; font-style: italic;
+  color: var(--ink); line-height: 1.4;
+}
+.pullout-quote em { color: var(--gold); font-weight: 700; font-style: normal; }
+.pullout-source {
+  margin-top: 1.5rem; font-size: .7rem; font-weight: 500;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--muted);
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 2rem 6%;
+  background: var(--ink);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; font-weight: 900; color: var(--paper);
+  letter-spacing: .05em; text-transform: uppercase;
+}
+.footer-note { font-size: .72rem; color: rgba(245,240,232,.35); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-kicker, .hero-headline, .hero-intro, .hero-side,
+.content-col, .wide-tip {
+  opacity: 0; animation: fadeUp .7s ease forwards;
+}
+.hero-kicker  { animation-delay: .1s; }
+.hero-headline{ animation-delay: .2s; }
+.hero-intro   { animation-delay: .35s; }
+.hero-side    { animation-delay: .45s; }
+.content-col:nth-child(1) { animation-delay: .2s; }
+.content-col:nth-child(2) { animation-delay: .35s; }
+.content-col:nth-child(3) { animation-delay: .5s; }
+.wide-tip:nth-child(1) { animation-delay: .1s; }
+.wide-tip:nth-child(2) { animation-delay: .2s; }
+.wide-tip:nth-child(3) { animation-delay: .3s; }
+.wide-tip:nth-child(4) { animation-delay: .4s; }
+.wide-tip:nth-child(5) { animation-delay: .5s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hero-side { border-left: none; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 2rem; flex-direction: row; flex-wrap: wrap; }
+  .hero-stat { padding-bottom: 0; border: none; min-width: 120px; }
+  .content { grid-template-columns: 1fr; }
+  .content-col { border-right: none; border-bottom: 1px solid var(--rule); padding: 2.5rem 0; }
+  .content-col:last-child { padding-left: 0; }
+  .content-col:nth-child(2) { padding-left: 0; }
+  .callout { grid-template-columns: 1fr; gap: 2rem; }
+  .wide-tip { grid-template-columns: 60px 1fr; }
+  .wide-tip-body { grid-column: 2 / -1; }
+  .pullout { padding: 3.5rem 8%; }
+  .table-header { flex-direction: column; gap: .5rem; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- MISE NAV -->
+<nav style="position:sticky;top:0;z-index:800;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 5%;background:rgba(249,245,236,.96);border-bottom:1px solid rgba(212,190,155,.25);backdrop-filter:blur(12px);">
+  <a href="index.html" style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#0e1208;text-decoration:none;letter-spacing:.08em;">MISE<sup style="font-size:.5rem;vertical-align:super;color:#c4622d;letter-spacing:.2em;font-family:'DM Sans',sans-serif;font-weight:600;text-transform:uppercase;margin-left:.2rem;">Coming Soon</sup></a>
+  <div style="display:flex;align-items:center;gap:2rem;">
+    <a href="index.html#how" style="font-size:.75rem;font-weight:500;letter-spacing:.08em;color:#7a6e5f;text-decoration:none;text-transform:uppercase;">How It Works</a>
+    <a href="index.html#stores" style="font-size:.75rem;font-weight:500;letter-spacing:.08em;color:#7a6e5f;text-decoration:none;text-transform:uppercase;">Pricing</a>
+    <a href="index.html#faq" style="font-size:.75rem;font-weight:500;letter-spacing:.08em;color:#7a6e5f;text-decoration:none;text-transform:uppercase;">FAQ</a>
+    <a href="save-money-shopping.html" style="font-size:.75rem;font-weight:600;letter-spacing:.08em;color:#3d5c3a;text-decoration:none;text-transform:uppercase;">Money Guide</a>
+    <a href="index.html#cta" style="background:#0e1208;color:#f9f5ec;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.65rem 1.5rem;border-radius:2px;text-decoration:none;">Join Waitlist</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<header style="border-bottom:1px solid rgba(26,18,8,.12);padding:3rem 6% 2.5rem;background:#f5f0e8;">
+  <span style="font-size:.62rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:#c4622d;display:block;margin-bottom:.75rem;">MISE · Smart Shopping</span>
+  <div style="font-size:.72rem;color:#7a6e5f;letter-spacing:.12em;text-transform:uppercase;">Money · Shopping · Home · 2026</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <span class="hero-kicker">The Definitive Guide</span>
+    <h1 class="hero-headline">
+      Stop<br>wasting<br><em>money</em><br>at the shops.
+    </h1>
+    <p class="hero-intro">
+      The average UK household throws away £60 a week in unnecessary grocery spend — bad planning, brand loyalty that costs a premium, and buying without a list. Here's exactly how to stop.
+    </p>
+  </div>
+  <aside class="hero-side">
+    <div class="hero-stat">
+      <span class="stat-num">£3,200</span>
+      <p class="stat-label">Average annual overspend on groceries per UK household</p>
+    </div>
+    <div class="hero-stat">
+      <span class="stat-num">31%</span>
+      <p class="stat-label">Of bought food is thrown away without being eaten</p>
+    </div>
+    <div class="hero-stat">
+      <span class="stat-num">£180</span>
+      <p class="stat-label">Monthly saving possible with a few simple habits</p>
+    </div>
+  </aside>
+</section>
+
+<!-- RULE -->
+<div class="rule-div">
+  <span class="rule-label">The Fundamentals</span>
+  <span class="rule-line"></span>
+  <span class="rule-diamond">◆</span>
+  <span class="rule-line"></span>
+  <span class="rule-label">Three pillars of smart shopping</span>
+</div>
+
+<!-- THREE COLUMN TIPS -->
+<section class="content">
+  <div class="content-col">
+    <span class="tip-number">I.</span>
+    <h2 class="tip-title">Plan before you <em>spend</em></h2>
+    <p class="tip-body">
+      A meal plan takes fifteen minutes on Saturday morning and saves you from the most expensive habit in grocery shopping: browsing hungry with no idea what you need. <strong>Shoppers without a list spend an average of 23% more</strong> per visit — impulse buys and duplicating what you already own.
+      <br><br>
+      Write down five dinners. Build your list from those five dinners only. Every item on the list should belong to a meal you have already decided to cook.
+    </p>
+  </div>
+  <div class="content-col">
+    <span class="tip-number">II.</span>
+    <h2 class="tip-title">Own-brand <em>is not</em> inferior</h2>
+    <p class="tip-body">
+      In blind taste tests, own-brand products match or beat branded equivalents in <strong>over 70% of categories</strong>. Pasta, tinned tomatoes, rice, flour, butter, eggs, frozen vegetables — there is virtually no meaningful difference between a £1.80 Tesco own-brand tin of chopped tomatoes and the Napolina at £2.40.
+      <br><br>
+      The brand premium is advertising cost, not quality. Switch systematically across your regular shop and the savings compound to hundreds of pounds per year.
+    </p>
+  </div>
+  <div class="content-col">
+    <span class="tip-number">III.</span>
+    <h2 class="tip-title">Compare <em>across</em> stores</h2>
+    <p class="tip-body">
+      No single supermarket is cheapest on everything. Aldi and Lidl win on everyday staples by a significant margin. Tesco Clubcard prices and Sainsbury's Nectar deals can undercut them on specific items. <strong>A split shop — Aldi for core staples, one additional stop for fresh or specific items — consistently saves £25–£40 per week</strong> for a household of two.
+      <br><br>
+      Track your basket price over four weeks. The pattern will tell you exactly where your money goes.
+    </p>
+  </div>
+</section>
+
+<!-- DARK CALLOUT -->
+<section class="callout">
+  <div>
+    <h2 class="callout-headline">The habits that <em>cost you most</em> every week</h2>
+    <p class="callout-body" style="margin-top:1.2rem">
+      Most grocery overspend comes from a handful of consistent, unconscious habits. Recognise them and the savings happen automatically.
+    </p>
+  </div>
+  <div class="callout-items">
+    <div class="callout-item">
+      <div class="callout-icon">🛒</div>
+      <div class="callout-item-text">
+        <strong>Shopping without a list</strong>
+        <span>Average additional cost: £14–£22 per visit. You buy what looks appealing, not what you need.</span>
+      </div>
+    </div>
+    <div class="callout-item">
+      <div class="callout-icon">🕐</div>
+      <div class="callout-item-text">
+        <strong>Shopping when hungry</strong>
+        <span>Studies show hungry shoppers buy 33% more calories — nearly all from high-margin snacks and treats.</span>
+      </div>
+    </div>
+    <div class="callout-item">
+      <div class="callout-icon">🎁</div>
+      <div class="callout-item-text">
+        <strong>Falling for bogof deals you don't need</strong>
+        <span>Buy-one-get-one offers are only savings if you would have bought two anyway. Otherwise it's a £2 tax on indecision.</span>
+      </div>
+    </div>
+    <div class="callout-item">
+      <div class="callout-icon">🚗</div>
+      <div class="callout-item-text">
+        <strong>Multiple small trips</strong>
+        <span>Each "quick trip" ends up costing more than your weekly big shop, per item. One organised weekly shop beats five impulse top-ups every time.</span>
+      </div>
+    </div>
+    <div class="callout-item">
+      <div class="callout-icon">📦</div>
+      <div class="callout-item-text">
+        <strong>Ignoring the freezer</strong>
+        <span>Supermarkets mark down meat and fish approaching use-by. Buy it, freeze it, save 30–50% on the most expensive items in your basket.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RULE -->
+<div class="rule-div">
+  <span class="rule-label">Advanced Tactics</span>
+  <span class="rule-line"></span>
+  <span class="rule-diamond">◆</span>
+  <span class="rule-line"></span>
+  <span class="rule-label">Eight techniques that actually work</span>
+</div>
+
+<!-- WIDE LIST TIPS -->
+<section class="wide-tips">
+
+  <div class="wide-tip">
+    <span class="wide-tip-num">04</span>
+    <div>
+      <span class="wide-tip-tag tag-gold">Price Strategy</span>
+      <h3 class="wide-tip-title">Learn the price of twenty things</h3>
+    </div>
+    <div class="wide-tip-body">
+      <p>You don't need to memorise every product — just your twenty most-bought items. Chicken thighs, butter, eggs, pasta, milk, bread, tinned tomatoes. Once you know the normal price, spotting a genuine deal takes a second. Most "special offers" are simply the usual price with a red banner around them.</p>
+    </div>
+  </div>
+
+  <div class="wide-tip">
+    <span class="wide-tip-num">05</span>
+    <div>
+      <span class="wide-tip-tag tag-sage">Seasonal Eating</span>
+      <h3 class="wide-tip-title">Buy what's in season</h3>
+    </div>
+    <div class="wide-tip-body">
+      <p>British strawberries in June cost £1.50. In January they cost £3.50 and taste of nothing. Seasonal produce is always cheaper, always better quality, and always fresher. In autumn: squash, apples, leeks, parsnips. In spring: asparagus, new potatoes, peas. In summer: courgettes, tomatoes, berries. Building menus around what's cheap and seasonal cuts your produce bill by 40%.</p>
+    </div>
+  </div>
+
+  <div class="wide-tip">
+    <span class="wide-tip-num">06</span>
+    <div>
+      <span class="wide-tip-tag tag-rust">Smart Timing</span>
+      <h3 class="wide-tip-title">The yellow sticker window</h3>
+    </div>
+    <div class="wide-tip-body">
+      <p>Supermarkets reduce fresh food in predictable windows — typically late morning and again in the final two hours before closing. Meat, fish, dairy, bread, and prepared foods can be marked down 50–75%. Shop this window intentionally and freeze what you can't use immediately. For a household of two, this one habit alone can save £20–£35 per week.</p>
+    </div>
+  </div>
+
+  <div class="wide-tip">
+    <span class="wide-tip-num">07</span>
+    <div>
+      <span class="wide-tip-tag tag-gold">Loyalty Schemes</span>
+      <h3 class="wide-tip-title">Use loyalty cards properly</h3>
+    </div>
+    <div class="wide-tip-body">
+      <p>Tesco Clubcard and Sainsbury's Nectar both offer member prices that can be 20–40% lower than shelf price on selected items each week. The mistake most people make is collecting points without ever spending them. Tesco Clubcard vouchers can be exchanged for triple value at certain restaurants and attractions — the points have more buying power than they appear to on your statement.</p>
+    </div>
+  </div>
+
+  <div class="wide-tip">
+    <span class="wide-tip-num">08</span>
+    <div>
+      <span class="wide-tip-tag tag-sage">Waste Reduction</span>
+      <h3 class="wide-tip-title">Use what you already have first</h3>
+    </div>
+    <div class="wide-tip-body">
+      <p>Before writing your weekly shop list, audit your fridge, freezer, and cupboards. Build at least two of your five planned meals around what you already own. This eliminates the biggest hidden cost in most households — food bought, forgotten, and thrown away. A half-used tin of coconut milk, three chicken thighs in the freezer, a wilting carrot — these are a meal, not waste, if you plan around them.</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- SAVINGS TABLE -->
+<section class="table-section">
+  <div class="table-header">
+    <h2 class="table-title">What each habit saves you</h2>
+    <span class="table-note">Estimates based on a household of 2 adults, UK average 2026</span>
+  </div>
+  <table class="savings-table">
+    <thead>
+      <tr>
+        <th>Habit</th>
+        <th>Effort Required</th>
+        <th>Weekly Saving</th>
+        <th>Annual Saving</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Always shop with a written list</td>
+        <td>15 minutes on Saturday</td>
+        <td class="saving-val">£14–£22</td>
+        <td class="saving-year">£900</td>
+      </tr>
+      <tr>
+        <td>Switch to own-brand on staples</td>
+        <td>One-time change</td>
+        <td class="saving-val">£18–£28</td>
+        <td class="saving-year">£1,140</td>
+      </tr>
+      <tr>
+        <td>Add Aldi / Lidl as your main shop</td>
+        <td>One new shop location</td>
+        <td class="saving-val">£25–£40</td>
+        <td class="saving-year">£1,690</td>
+      </tr>
+      <tr>
+        <td>Yellow sticker shopping + freezing</td>
+        <td>Flexible timing, 1× per week</td>
+        <td class="saving-val">£20–£35</td>
+        <td class="saving-year">£1,430</td>
+      </tr>
+      <tr>
+        <td>Cook seasonally</td>
+        <td>Light meal planning</td>
+        <td class="saving-val">£10–£18</td>
+        <td class="saving-year">£730</td>
+      </tr>
+      <tr>
+        <td>Use loyalty cards & member prices</td>
+        <td>Carry a card, check app weekly</td>
+        <td class="saving-val">£6–£14</td>
+        <td class="saving-year">£520</td>
+      </tr>
+      <tr>
+        <td>Audit fridge before shopping</td>
+        <td>5 minutes per week</td>
+        <td class="saving-val">£8–£15</td>
+        <td class="saving-year">£590</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- PULLOUT QUOTE -->
+<div class="pullout">
+  <p class="pullout-quote">
+    "The goal isn't to eat cheaper food. It's to stop paying more than you need to for <em>exactly the same food</em> you're already eating."
+  </p>
+  <p class="pullout-source">— MISE, on smart shopping</p>
+</div>
+
+<!-- MISE CTA -->
+<section style="background:#1a1208;padding:5rem 6%;text-align:center;">
+  <span style="font-size:.62rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:#c8922a;display:block;margin-bottom:1rem;">From the people behind this guide</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#f5f0e8;line-height:1.1;margin-bottom:1.2rem;">MISE puts all of this <em style="font-style:italic;color:#c8922a;">into practice</em> for you.</h2>
+  <p style="font-size:.95rem;color:rgba(245,240,232,.5);max-width:52ch;margin:0 auto 2.5rem;line-height:1.9;">Every week we find the cheapest shop, send you five restaurant-quality recipes built around it, and teach you the techniques behind each one. You save money. You eat better. Every single week.</p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+    <a href="index.html#cta" style="background:#c8922a;color:#fff;font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.9rem 2.2rem;border-radius:2px;text-decoration:none;">Join the Waitlist — Free →</a>
+    <a href="index.html" style="background:transparent;color:rgba(245,240,232,.5);font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.9rem 2.2rem;border-radius:2px;text-decoration:none;border:1px solid rgba(245,240,232,.15);">See How MISE Works</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-brand">MISE</span>
+  <span class="footer-note">© 2026 · For informational purposes · Prices are estimates based on UK averages</span>
+</footer>
+
+</body>
+</html>
