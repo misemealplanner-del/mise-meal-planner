@@ -1082,15 +1082,21 @@ footer { background: var(--c); padding: 4rem 6%; }
 /* ─── DATA ─── */
 const recipes = [
   { 
-    day:'Saturday', emoji:'🍝', name:'Saffron & Prawn Linguine', price:1.85, time:'30 min', bg:'bg1', star:true,
+    day:'Monday', emoji:'🦐', name:'Thai Marinated Prawns', price:1.30, time:'20 min', bg:'bg1', star:true,
     steps:[
-      'Peel the prawns but save the shells. Sauté shells in 2 tbsp oil on high until deep orange. This builds a "fond"—a concentrated flavor base used in every bistro kitchen.',
-      'Bloom a pinch of saffron in 2 tbsp warm water for 5 mins. This releases the essential oils that would otherwise be lost in the steam.',
-      'In the same pan, sauté minced garlic and chilli until golden. Deglaze with 100ml white wine, scraping up the orange bits (the fond). Add saffron water and halved tomatoes.',
-      'Boil linguine 2 mins less than the packet says. Move it directly to the sauce pan with a ladle of starchy pasta water. Toss vigorously to "emulsify" the sauce into a glossy coating.',
-      'The residual heat will cook the raw prawns in under 90 seconds. Serve immediately with parsley and lemon zest for a bright, high-acid finish.'
+      'Start the rice first: Rinse the Long Grain Rice three times in cold water to remove excess starch. This is the secret to fluffy, non-clumping rice that mimics premium Jasmine grains.',
+      'Boil the rice in salted water. For a professional aromatic touch, throw in the stems of your fresh coriander while it simmers—this infuses the grains with a fresh, herbal scent.',
+      'Get your pan "whispering" hot (just before the oil smokes). Add the Thai Marinated Prawns in a single layer. Do not move them for 60 seconds to allow the marinade to caramelize into a crust.',
+      'Flip the prawns and cook for another 60 seconds. Deglaze the pan with the Full Fat Coconut Milk, scraping the bottom to pick up all the charred bits of garlic and chili from the marinade.',
+      'Remove from heat immediately to keep the prawns succulent. Serve in a shallow bowl over the aromatic rice and finish with freshly torn coriander leaves.'
     ],
-    ings:[{n:'Linguine 500g',s:'Aldi',p:'£0.49'},{n:'King Prawns 200g',s:'Aldi Seafood',p:'£2.49'},{n:'Saffron (pinch)',s:'Aldi Spices',p:'£0.28'},{n:'Cherry Tomatoes',s:'Aldi',p:'£0.59'},{n:'Garlic, wine, parsley',s:'Aldi',p:'£0.85'}]
+    ings:[
+      {n:'Thai Marinated Prawns 200g', s:'Aldi Seafood', p:'£0.19', url:'https://www.aldi.co.uk/product/the-fishmonger-thai-marinated-prawns-000000000579406003'},
+      {n:'British Cut Coriander', s:'Aldi', p:'£0.50', url:'https://www.aldi.co.uk/product/ready-set-cook-british-cut-coriander-000000000000339817'},
+      {n:'Coconut Milk Full Fat 200ml', s:'Aldi', p:'£0.75', url:'https://www.aldi.co.uk/product/asia-green-garden-coconut-milk-400ml-full-fat-000000000635586001'},
+      {n:'British Table Salt 1 tbsp', s:'Aldi', p:'£0.65', url:'https://www.aldi.co.uk/product/ready-set-cook-british-table-salt-000000000000335885'},
+      {n:'Long Grain White Rice 500g', s:'Aldi', p:'£0.52', url:'https://www.aldi.co.uk/product/everyday-essentials-long-grain-white-rice-000000000000337400'}
+    ]
   },
   { 
     day:'Tuesday', emoji:'🥩', name:'Duck Leg Confit', price:2.40, time:'3 hrs', bg:'bg2', star:true,
@@ -1101,7 +1107,11 @@ const recipes = [
       'Finish the duck: Place skin-side down in a COLD pan, then turn to medium-high. This "cold start" renders the remaining fat for a paper-thin, crisp finish.',
       'Whisk a knob of butter and a splash of sherry vinegar into the warm lentils. This acidity cuts through the richness of the duck fat perfectly.'
     ],
-    ings:[{n:'Duck Legs ×2',s:'Aldi',p:'£2.40'},{n:'Puy Lentils 250g',s:'Aldi',p:'£0.89'},{n:'Shallots & thyme',s:'Aldi',p:'£0.55'},{n:'Sherry vinegar',s:'Aldi',p:'£0.35'},{n:'Salt & pepper',s:'Pantry',p:'£0.05'}]
+    ings:[{n:'Duck Legs ×2',s:'Aldi',p:'£2.40', url:''},
+    {n:'Puy Lentils 250g',s:'Aldi',p:'£0.89', url:''},
+    {n:'Shallots & thyme',s:'Aldi',p:'£0.55', url:''},
+    {n:'Sherry vinegar',s:'Aldi',p:'£0.35', url:''},
+    {n:'Salt & pepper',s:'Pantry',p:'£0.05', url:''}]
   },
   { 
     day:'Wednesday', emoji:'🐔', name:'Chicken Fricassée', price:1.60, time:'45 min', bg:'bg3', star:false,
@@ -1171,11 +1181,13 @@ function openModal(emoji, name, sub, index) {
 
   // 3. Clear and fill the Ingredients
   const ingContainer = document.getElementById('mIngs');
-  ingContainer.innerHTML = ''; // Clear previous content
+  ingContainer.innerHTML = ''; 
   recipe.ings.forEach(ing => {
     ingContainer.innerHTML += `
       <div class="ing-row">
-        <span class="ing-n">${ing.n}</span>
+        <span class="ing-n">
+          ${ing.url !== '#' ? `<a href="${ing.url}" target="_blank" style="color: inherit; text-decoration: underline;">${ing.n}</a>` : ing.n}
+        </span>
         <span class="ing-s">${ing.s}</span>
         <span class="ing-p">${ing.p}</span>
       </div>`;
