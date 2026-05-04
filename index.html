@@ -689,6 +689,24 @@ footer { background: var(--c); padding: 4rem 6%; }
   }
 }
 
+.modal-disclaimer {
+  font-size: 0.75rem;
+  color: #666;
+  margin-top: -8px; /* Pulls it closer to the heading */
+  margin-bottom: 12px;
+  font-style: italic;
+  line-height: 1.2;
+}
+
+.modal-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* This crops the image perfectly to the box */
+    border-radius: 12px;
+    margin: 15px 0;
+    border: 1px solid #eee;
+}
+
 </style>
 </head>
 <body>
@@ -699,11 +717,15 @@ footer { background: var(--c); padding: 4rem 6%; }
     <button class="modal-x" onclick="closeModal()">✕</button>
     <span class="modal-emoji" id="mEmoji"></span>
     <h2 class="modal-title" id="mTitle"></h2>
+    
+    <img id="mImage" src="" alt="Recipe Image" class="modal-img" style="display:none;">
+    
     <p class="modal-sub" id="mSub"></p>
     <span class="modal-section-title">The Chef Technique — Step by Step</span>
     <div id="mMethod"></div>
     <span class="modal-section-title">Ingredients & Prices</span>
     <div id="mIngs"></div>
+    <p class="modal-disclaimer">*Prices are estimates based on Aldi UK online and may vary by region or store availability.</p>
     <button class="modal-add" onclick="joinFromModal()">Join Waitlist to Unlock All Recipes →</button>
   </div>
 </div>
@@ -771,16 +793,16 @@ footer { background: var(--c); padding: 4rem 6%; }
   <div class="hero-right">
     <!-- main card -->
     <div class="hc main">
-      <div class="hc-emoji">🍝</div>
+      <img src="thai-prawns.jpg" alt="Thai Marinated Prawns" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
       <div class="hc-body">
         <span class="hc-tag">⭐ Chef's Pick · Monday</span>
-        <p class="hc-name">Saffron &amp; Prawn<br>Seafood Linguine</p>
-        <p class="hc-price">£1.85 per serving &nbsp;·&nbsp; Aldi &nbsp;·&nbsp; 30 min</p>
+        <p class="hc-name">Thai Marinated<br>Prawns</p>
+        <p class="hc-price">£1.80 per serving &nbsp;·&nbsp; Aldi &nbsp;·&nbsp; 20 min</p>
       </div>
     </div>
     <!-- sub cards -->
     <div class="hc">
-      <div class="hc-emoji">🥩</div>
+      <img src="duck.jpg" alt="🥩">
       <div class="hc-body">
         <span class="hc-tag">Tuesday</span>
         <p class="hc-name">Duck Leg<br>Confit</p>
@@ -833,7 +855,7 @@ footer { background: var(--c); padding: 4rem 6%; }
       <span class="eyebrow">This Week's Menu</span>
       <h2 class="heading" style="margin-bottom:0">Five dinners. <em>One smart shop.</em></h2>
     </div>
-    <p class="body-text" style="max-width:28ch;text-align:right">Click any recipe to see the full technique and shopping list.</p>
+    <p class="body-text" style="max-width:28ch;text-align:right">Click any recipe to see the full technique.</p>
   </div>
   <div class="recipe-scroller" id="recipeGrid"></div>
   <div class="recipe-week-total">
@@ -850,41 +872,41 @@ footer { background: var(--c); padding: 4rem 6%; }
   </div>
   <div class="feature-grid">
     <div class="feature-visual">
-      <div class="feature-emoji">🍝</div>
+      <img src="thai-prawns.jpg">
       <div class="feature-badge">
-        <span class="fb-tag">⭐ Saturday · Week 1 · Chef's Pick</span>
-        <p class="fb-name">Saffron &amp; Prawn Linguine</p>
-        <p class="fb-price">Restaurant price: £22 &nbsp;·&nbsp; Your cost: £1.85 per serving</p>
+        <span class="fb-tag">⭐ Monday · Week 1 · Chef's Pick</span>
+        <p class="fb-name">Thai Marinated Prawns</p>
+        <p class="fb-price">Restaurant price: £22 &nbsp;·&nbsp; Your cost: £1.80 per serving</p>
       </div>
     </div>
     <div>
       <div class="technique-tags">
         <span class="ttag ttag-g">Fond technique</span>
-        <span class="ttag ttag-t">30 minutes</span>
+        <span class="ttag ttag-t">20 minutes</span>
         <span class="ttag ttag-y">Pro plating</span>
         <span class="ttag ttag-g">Serves 2</span>
       </div>
-      <p class="body-text" style="margin-bottom:1.5rem">This exact dish is on the menu at coastal bistros for £22 a head. The reason it tastes so good isn't the ingredients — it's one technique nobody teaches home cooks. We do, in three clear sentences.</p>
+      <p class="body-text" style="margin-bottom:1.5rem">This dish is on menus at restaurants up and down the country. The reason it tastes so good isn't the ingredients — it's the techniques nobody teaches home cooks. We do!</p>
       <span class="eyebrow" style="margin-bottom:.65rem">Shopping List — Aldi (cheapest this week)</span>
       <div class="ing-list">
-        <div class="ing-row"><span class="ing-n">Linguine 500g</span><span class="ing-s">Aldi own-brand</span><span class="ing-p">£0.49</span></div>
-        <div class="ing-row"><span class="ing-n">Raw King Prawns 200g</span><span class="ing-s">Aldi Seafood</span><span class="ing-p">£2.49</span></div>
-        <div class="ing-row"><span class="ing-n">Saffron (pinch)</span><span class="ing-s">Aldi Spices</span><span class="ing-p">£0.28</span></div>
-        <div class="ing-row"><span class="ing-n">Cherry Tomatoes 250g</span><span class="ing-s">Aldi Produce</span><span class="ing-p">£0.59</span></div>
-        <div class="ing-row"><span class="ing-n">Garlic, white wine, parsley</span><span class="ing-s">Aldi</span><span class="ing-p">£0.85</span></div>
+        <div class="ing-row"><span class="ing-n">Thai Marinated Prawns 200g</span><span class="ing-s">Aldi Seafood</span><span class="ing-p">£1.19</span></div>
+        <div class="ing-row"><span class="ing-n">British Cut Coriander</span><span class="ing-s">Aldi</span><span class="ing-p">£0.50</span></div>
+        <div class="ing-row"><span class="ing-n">Coconut Milk Full Fat 200ml</span><span class="ing-s">Aldi</span><span class="ing-p">£0.75</span></div>
+        <div class="ing-row"><span class="ing-n">British Table Salt</span><span class="ing-s">Aldi</span><span class="ing-p">£0.65</span></div>
+        <div class="ing-row"><span class="ing-n">Long Grain White Rice 500g</span><span class="ing-s">Aldi</span><span class="ing-p">£0.52</span></div>
       </div>
       <div class="total-band">
         <div>
           <span class="tb-label">Total for 2 people</span>
           <span class="tb-save">Save £40.30 vs ordering this in a restaurant</span>
         </div>
-        <span class="tb-price">£3.70</span>
+        <span class="tb-price">£3.60</span>
       </div>
       <div class="technique-box">
         <span class="tech-label">🎓 The Chef Technique: The Fond</span>
         <p class="tech-text">Before anything else, sauté the prawn shells in oil until they turn deep orange. This builds a fond — a concentrated flavour base used in every professional kitchen. It's one step, it takes four minutes, and it's why this dish tastes like it costs ten times more than it does.</p>
       </div>
-      <button class="view-recipe-btn" onclick="openModal('🍝','Saffron & Prawn Linguine','30 min · Serves 2 · £1.85 per serving',0)">View Full Recipe &amp; All Steps →</button>
+      <button class="view-recipe-btn" onclick="openModal('🦐','Thai Marinated Prawns','20 min · Serves 2 · £1.80 per serving',0)">View Full Recipe &amp; All Steps →</button>
     </div>
   </div>
 </section>
@@ -1082,7 +1104,7 @@ footer { background: var(--c); padding: 4rem 6%; }
 /* ─── DATA ─── */
 const recipes = [
   { 
-    day:'Monday', emoji:'🦐', name:'Thai Marinated Prawns', price:1.30, time:'20 min', bg:'bg1', star:true,
+    day:'Monday', emoji:'🦐', name:'Thai Marinated Prawns', price:1.80, time:'20 min', bg:'bg1', star:true, img: 'thai-prawns.jpg',
     steps:[
       'Start the rice first: Rinse the Long Grain Rice three times in cold water to remove excess starch. This is the secret to fluffy, non-clumping rice that mimics premium Jasmine grains.',
       'Boil the rice in salted water. For a professional aromatic touch, throw in the stems of your fresh coriander while it simmers—this infuses the grains with a fresh, herbal scent.',
@@ -1091,27 +1113,29 @@ const recipes = [
       'Remove from heat immediately to keep the prawns succulent. Serve in a shallow bowl over the aromatic rice and finish with freshly torn coriander leaves.'
     ],
     ings:[
-      {n:'Thai Marinated Prawns 200g', s:'Aldi Seafood', p:'£0.19', url:'https://www.aldi.co.uk/product/the-fishmonger-thai-marinated-prawns-000000000579406003'},
+      {n:'Thai Marinated Prawns 200g', s:'Aldi Seafood', p:'£1.19', url:'https://www.aldi.co.uk/product/the-fishmonger-thai-marinated-prawns-000000000579406003'},
       {n:'British Cut Coriander', s:'Aldi', p:'£0.50', url:'https://www.aldi.co.uk/product/ready-set-cook-british-cut-coriander-000000000000339817'},
       {n:'Coconut Milk Full Fat 200ml', s:'Aldi', p:'£0.75', url:'https://www.aldi.co.uk/product/asia-green-garden-coconut-milk-400ml-full-fat-000000000635586001'},
-      {n:'British Table Salt 1 tbsp', s:'Aldi', p:'£0.65', url:'https://www.aldi.co.uk/product/ready-set-cook-british-table-salt-000000000000335885'},
+      {n:'British Table Salt', s:'Aldi', p:'£0.65', url:'https://www.aldi.co.uk/product/ready-set-cook-british-table-salt-000000000000335885'},
       {n:'Long Grain White Rice 500g', s:'Aldi', p:'£0.52', url:'https://www.aldi.co.uk/product/everyday-essentials-long-grain-white-rice-000000000000337400'}
     ]
   },
   { 
-    day:'Tuesday', emoji:'🥩', name:'Duck Leg Confit', price:2.40, time:'3 hrs', bg:'bg2', star:true,
-    steps:[
-      'Season duck legs with 1% of their weight in salt. Chill uncovered overnight. This "dry brine" draws out moisture to ensure the skin shatters when cooked.',
-      'Place legs in a small tray with thyme and garlic. Bake at 140°C (120°C Fan) for 2.5 hours. They will "confit" (fat-poach) in their own rendered fat.',
-      'Simmer Puy lentils in water (no salt!) with diced onion and carrot. Adding salt early toughens the skins; only season at the very end.',
-      'Finish the duck: Place skin-side down in a COLD pan, then turn to medium-high. This "cold start" renders the remaining fat for a paper-thin, crisp finish.',
-      'Whisk a knob of butter and a splash of sherry vinegar into the warm lentils. This acidity cuts through the richness of the duck fat perfectly.'
+    day:'Tuesday', emoji:'🥩', name:'Duck Leg Confit', price:4.10, time:'3 hrs', bg:'bg2', star:true, img: 'duck.jpg',
+    steps: [
+      'Season duck legs with 1% of their weight in salt (approx 4.6g). Chill uncovered overnight to dry the skin for a "shatter" crisp finish.',
+      'Place legs in a small tray with half the sliced onion and a generous pinch of pepper. Bake at 140°C (120°C Fan) for 2.5 hours.',
+      'Drain and rinse the tinned beans. Soften the remaining onion in a pan with a spoonful of the rendered duck fat, then stir in the beans to warm.',
+      'Place duck skin-side down in a COLD pan, then turn to medium-high. This "cold start" renders the remaining fat for paper-thin, crispy skin.',
+      'Finish by stirring the zest and juice of the lemons into the warm beans with extra pepper. The citrus cuts the rich duck fat perfectly.'
     ],
-    ings:[{n:'Duck Legs ×2',s:'Aldi',p:'£2.40', url:''},
-    {n:'Puy Lentils 250g',s:'Aldi',p:'£0.89', url:''},
-    {n:'Shallots & thyme',s:'Aldi',p:'£0.55', url:''},
-    {n:'Sherry vinegar',s:'Aldi',p:'£0.35', url:''},
-    {n:'Salt & pepper',s:'Pantry',p:'£0.05', url:''}]
+    ings:[{n:'Gressingham Duck Legs 462G',s:'Tesco',p:'£4.80', url:'https://www.tesco.com/shop/en-GB/products/268397729'},
+    {n:'Tinned Black Beans/Green Lentils 250g',s:'Aldi',p:'£0.49', url:'https://www.aldi.co.uk/product/four-seasons-tinned-black-beans-green-lentils-000000000627180002'},
+    {n:'Brown Onions Loose',s:'Tesco',p:'£0.12', url:'https://www.tesco.com/shop/en-GB/products/253557034'},
+    {n:'Lemons',s:'Aldi',p:'£0.89', url:'https://www.aldi.co.uk/product/everyday-essentials-wonky-lemons-000000000000268496'},
+    {n:'pepper',s:'Tesco',p:'£1.25', url:'https://www.tesco.com/shop/en-GB/products/254568745'},
+    {n:'salt',s:'Aldi',p:'£0.65', url:'https://www.aldi.co.uk/product/ready-set-cook-british-table-salt-000000000000335885'},
+    ]
   },
   { 
     day:'Wednesday', emoji:'🐔', name:'Chicken Fricassée', price:1.60, time:'45 min', bg:'bg3', star:false,
@@ -1168,9 +1192,18 @@ function openModal(emoji, name, sub, index) {
   document.getElementById('mTitle').textContent = name;
   document.getElementById('mSub').textContent = sub;
 
-  // 2. Clear and fill the Steps (Method)
+  // 2. Handle the Image
+  const modalImg = document.getElementById('mImage');
+  if (recipe.img) {
+    modalImg.src = recipe.img;
+    modalImg.style.display = 'block'; // Show the image if it exists
+  } else {
+    modalImg.style.display = 'none';  // Hide the image element if no path is provided
+  }
+
+  // 3. Clear and fill the Steps (Method)
   const methodContainer = document.getElementById('mMethod');
-  methodContainer.innerHTML = ''; // Clear previous content
+  methodContainer.innerHTML = ''; 
   recipe.steps.forEach((step, i) => {
     methodContainer.innerHTML += `
       <div class="method-step">
@@ -1179,23 +1212,23 @@ function openModal(emoji, name, sub, index) {
       </div>`;
   });
 
-  // 3. Clear and fill the Ingredients
+  // 4. Clear and fill the Ingredients
   const ingContainer = document.getElementById('mIngs');
   ingContainer.innerHTML = ''; 
   recipe.ings.forEach(ing => {
     ingContainer.innerHTML += `
       <div class="ing-row">
         <span class="ing-n">
-          ${ing.url !== '#' ? `<a href="${ing.url}" target="_blank" style="color: inherit; text-decoration: underline;">${ing.n}</a>` : ing.n}
+          ${ing.url && ing.url !== '#' ? `<a href="${ing.url}" target="_blank" style="color: inherit; text-decoration: underline;">${ing.n}</a>` : ing.n}
         </span>
         <span class="ing-s">${ing.s}</span>
         <span class="ing-p">${ing.p}</span>
       </div>`;
   });
 
-  // 4. Show the modal
+  // 5. Show the modal
   modal.classList.add('open');
-  document.body.style.overflow = 'hidden'; // Stop the background from scrolling
+  document.body.style.overflow = 'hidden'; 
 }
 
 function closeModal() {
@@ -1230,9 +1263,9 @@ recipes.forEach((r,i) => {
   grid.innerHTML += `
     <div class="rcard">
       <div class="rcard-img ${r.bg}">
+        ${r.img ? `<img src="${r.img}" alt="${r.name}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">` : r.emoji}
         <span class="rcard-day">${r.day}</span>
         ${r.star ? '<span class="rcard-star">Chef\'s Pick</span>' : ''}
-        ${r.emoji}
       </div>
       <div class="rcard-body">
         <p class="rcard-name">${r.name}</p>
