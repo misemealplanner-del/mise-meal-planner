@@ -1067,7 +1067,7 @@ footer { background: var(--c); padding: 4rem 6%; }
     <div class="footer-col">
       <h4>Follow Along</h4>
       <ul>
-        <li><a href="#">Pinterest - coming soon</a></li>
+        <li><a href="https://uk.pinterest.com/MISEMEALS/">Pinterest</a></li>
         <li><a href="#">Newsletter</a></li>
       </ul>
     </div>
@@ -1081,24 +1081,59 @@ footer { background: var(--c); padding: 4rem 6%; }
 <script>
 /* ─── DATA ─── */
 const recipes = [
-  { day:'Saturday',    emoji:'🍝', name:'Saffron Prawn Linguine',       price:1.85, time:'30 min', bg:'bg1', star:true,
-    steps:['Peel the prawns and keep every shell. Sauté the shells in a little oil until they turn deep burnt-orange. This builds your fond — the flavour base that makes this taste like a restaurant dish.','Bloom a pinch of saffron in 2 tbsp of warm water for 5 minutes. This is the detail restaurants don\'t put in recipe cards.','In the same pan, cook garlic until golden, deglaze with white wine, reduce by half. Add the saffron water and halved cherry tomatoes.','Cook linguine 90 seconds under the package time. Finish it in the sauce, adding pasta water by the spoonful to emulsify into a glossy coating.','Twirl the pasta high with tongs. Spoon sauce underneath, drape prawns over the top. Crack black pepper. Finish with a drizzle of parsley oil.'],
+  { 
+    day:'Saturday', emoji:'🍝', name:'Saffron & Prawn Linguine', price:1.85, time:'30 min', bg:'bg1', star:true,
+    steps:[
+      'Peel the prawns but save the shells. Sauté shells in 2 tbsp oil on high until deep orange. This builds a "fond"—a concentrated flavor base used in every bistro kitchen.',
+      'Bloom a pinch of saffron in 2 tbsp warm water for 5 mins. This releases the essential oils that would otherwise be lost in the steam.',
+      'In the same pan, sauté minced garlic and chilli until golden. Deglaze with 100ml white wine, scraping up the orange bits (the fond). Add saffron water and halved tomatoes.',
+      'Boil linguine 2 mins less than the packet says. Move it directly to the sauce pan with a ladle of starchy pasta water. Toss vigorously to "emulsify" the sauce into a glossy coating.',
+      'The residual heat will cook the raw prawns in under 90 seconds. Serve immediately with parsley and lemon zest for a bright, high-acid finish.'
+    ],
     ings:[{n:'Linguine 500g',s:'Aldi',p:'£0.49'},{n:'King Prawns 200g',s:'Aldi Seafood',p:'£2.49'},{n:'Saffron (pinch)',s:'Aldi Spices',p:'£0.28'},{n:'Cherry Tomatoes',s:'Aldi',p:'£0.59'},{n:'Garlic, wine, parsley',s:'Aldi',p:'£0.85'}]
   },
-  { day:'Tuesday',   emoji:'🥩', name:'Duck Leg Confit',               price:2.40, time:'3 hrs',  bg:'bg2', star:true,
-    steps:['Salt the duck legs generously the night before. Cover and refrigerate. This dry brine penetrates the meat deeply — the restaurant kitchen never skips this.','Place legs in a small roasting tin. They render their own fat. Cook at 140°C for 2.5 hours. This is confit — fat-poaching at low temperature. The result is impossibly tender.','With 30 minutes to go, cook Puy lentils with duck fat, fresh thyme, and diced shallots. The lentils absorb the fat and become something entirely different.','Blast the duck skin under a hot grill for exactly 4 minutes. You want lacquered, shatteringly crisp skin. This is the texture contrast that makes the dish.','Rest 10 minutes. Plate lentils in a pool, lean the duck against them. The leg should never lie flat — height is flavour in plating.'],
-    ings:[{n:'Duck Legs ×2',s:'Aldi',p:'£2.40'},{n:'Puy Lentils 250g',s:'Aldi',p:'£0.89'},{n:'Shallots & thyme',s:'Aldi',p:'£0.55'},{n:'Red wine vinegar',s:'Aldi',p:'£0.35'},{n:'Salt & pepper',s:'Pantry',p:'£0.05'}]
+  { 
+    day:'Tuesday', emoji:'🥩', name:'Duck Leg Confit', price:2.40, time:'3 hrs', bg:'bg2', star:true,
+    steps:[
+      'Season duck legs with 1% of their weight in salt. Chill uncovered overnight. This "dry brine" draws out moisture to ensure the skin shatters when cooked.',
+      'Place legs in a small tray with thyme and garlic. Bake at 140°C (120°C Fan) for 2.5 hours. They will "confit" (fat-poach) in their own rendered fat.',
+      'Simmer Puy lentils in water (no salt!) with diced onion and carrot. Adding salt early toughens the skins; only season at the very end.',
+      'Finish the duck: Place skin-side down in a COLD pan, then turn to medium-high. This "cold start" renders the remaining fat for a paper-thin, crisp finish.',
+      'Whisk a knob of butter and a splash of sherry vinegar into the warm lentils. This acidity cuts through the richness of the duck fat perfectly.'
+    ],
+    ings:[{n:'Duck Legs ×2',s:'Aldi',p:'£2.40'},{n:'Puy Lentils 250g',s:'Aldi',p:'£0.89'},{n:'Shallots & thyme',s:'Aldi',p:'£0.55'},{n:'Sherry vinegar',s:'Aldi',p:'£0.35'},{n:'Salt & pepper',s:'Pantry',p:'£0.05'}]
   },
-  { day:'Wednesday', emoji:'🐔', name:'Chicken Fricassée',             price:1.60, time:'45 min', bg:'bg3', star:false,
-    steps:['Season chicken thighs. Place skin-down in a cold pan, bring to medium-high. Don\'t touch for 8 minutes. You\'re building a dark, golden fond. This is your only sauce ingredient.','Remove the chicken. The pan looks almost burnt — perfect. Add mushrooms directly into the fond and cook until every drop of water has evaporated and they are deeply golden.','Add shallots, tarragon, then deglaze with white wine. Return the chicken, lid on, 25 minutes at medium-low.','Pull off the heat. Stir in crème fraîche. Never let cream boil — it splits. Off the heat, it becomes a velvet sauce.','Serve over pearl barley. The barley absorbs the sauce. Tear over fresh tarragon. Crack black pepper generously.'],
+  { 
+    day:'Wednesday', emoji:'🐔', name:'Chicken Fricassée', price:1.60, time:'45 min', bg:'bg3', star:false,
+    steps:[
+      'Place chicken thighs skin-down in a cold pan. Increase heat to medium. This renders the fat slowly, creating a deep golden crust without burning.',
+      'Remove chicken and add mushrooms. Sauté until "squeaking" and golden. Mushrooms are 90% water; you must cook the moisture out to get real flavor.',
+      'Deglaze with white wine, then return chicken with tarragon and shallots. Cover and simmer on low for 25 mins. The bone-in thighs keep the meat juicy.',
+      'Crucial Step: Remove from heat before adding crème fraîche. Never let cream boil after it is added or the sauce will "split" and lose its velvet texture.',
+      'Serve over pearl barley. The nuttiness of the barley balances the rich cream. Finish with fresh, uncooked tarragon to keep the herb aroma sharp.'
+    ],
     ings:[{n:'Chicken Thighs ×4',s:'Aldi',p:'£2.20'},{n:'Chestnut Mushrooms',s:'Aldi',p:'£0.79'},{n:'Crème Fraîche 200ml',s:'Aldi',p:'£0.55'},{n:'Tarragon & Shallots',s:'Aldi',p:'£0.45'},{n:'White Wine 100ml',s:'Aldi',p:'£0.39'}]
   },
-  { day:'Thursday',  emoji:'🥦', name:'Charred Broccoli & Gnocchi',   price:1.20, time:'25 min', bg:'bg4', star:false,
-    steps:['Halve the broccoli florets. Coat in oil, place cut-side down in a screaming-hot dry pan. No water. No steam. Pure contact heat. Leave for 3 minutes without touching.','Boil gnocchi in heavily salted water until they float, plus 30 seconds. They should be just slightly resistant.','In the same gnocchi pan, cook butter over medium heat until it turns nut-brown and smells of hazelnuts. Beurre noisette. This is the restaurant trick that costs nothing.','Toss everything together in the brown butter. Season very aggressively — gnocchi needs more salt than you think.','Shave Parmesan with a vegetable peeler. Add chilli flakes and lemon zest. The acid lifts everything.'],
+  { 
+    day:'Thursday', emoji:'🥦', name:'Charred Broccoli & Gnocchi', price:1.20, time:'25 min', bg:'bg4', star:false,
+    steps:[
+      'Cut broccoli into flat-edged florets. Place cut-side down in a dry, screaming-hot pan. This "dry char" creates a smoky flavor that steaming cannot achieve.',
+      'Boil gnocchi until they float, then immediately drain. Do not let them sit in water or they will turn gummy and lose their "pillowy" structure.',
+      'Make Beurre Noisette: Melt butter over medium heat until the milk solids turn the color of a hazelnut. Stop the cooking immediately with a squeeze of lemon.',
+      'Toss the gnocchi into the brown butter with the charred broccoli. The toasted milk solids act like a natural flavor enhancer.',
+      'Garnish with shaved Parmesan and chilli flakes. Use a vegetable peeler for the cheese to get wide "ribbons" that melt slowly on the tongue.'
+    ],
     ings:[{n:'Gnocchi 500g',s:'Aldi',p:'£0.79'},{n:'Broccoli (head)',s:'Aldi',p:'£0.45'},{n:'Butter 50g',s:'Aldi',p:'£0.25'},{n:'Parmesan 40g',s:'Aldi',p:'£0.55'},{n:'Chilli & lemon',s:'Pantry',p:'£0.22'}]
   },
-  { day:'Friday',    emoji:'🐟', name:'Pan-Roasted Salmon & Capers',  price:2.10, time:'20 min', bg:'bg5', star:true,
-    steps:['Pat the salmon skin completely dry with kitchen paper. Season the flesh only — never the skin before cooking. Salt on skin draws moisture out and prevents it crisping.','Press skin flat against a cold pan. Turn on medium-high. The fish heats with the pan, cooking evenly rather than seizing. Do not move it.','After 4–5 minutes the flesh will be opaque two-thirds of the way up. Flip once. Cook 90 seconds. Remove and rest — the heat carries through.','In the same pan: shallots, white wine, reduce to a syrup. Off the heat, whisk in cold butter cube by cube. Add capers. This is beurre blanc.','Spoon the sauce onto the plate first. Place the salmon skin-up so it stays crisp. Scatter dill and a squeeze of lemon.'],
+  { 
+    day:'Friday', emoji:'🐟', name:'Pan-Roasted Salmon & Capers', price:2.10, time:'20 min', bg:'bg5', star:true,
+    steps:[
+      'Pat salmon skin bone-dry with paper towels. Season the flesh only. Moisture on the skin creates steam, which is the enemy of a crisp crust.',
+      'Place skin-down in a cold pan. Turn heat to medium. Press the fish down with a spatula for the first 30 seconds to prevent the skin from curling.',
+      'Flip once the flesh is opaque 75% of the way up (about 5 mins). Cook for 60 seconds more. The residual heat will finish the center while it rests.',
+      'In the pan juices, sauté shallots and capers. Deglaze with wine. Off the heat, whisk in cold butter one cube at a time to create a thick "Beurre Blanc."',
+      'Plate the sauce first, then sit the salmon on top skin-side UP. This ensures the skin stays shatteringly crisp until the very first bite.'
+    ],
     ings:[{n:'Salmon Fillets ×2',s:'Aldi',p:'£3.20'},{n:'Capers 30g',s:'Aldi',p:'£0.45'},{n:'Butter 40g',s:'Aldi',p:'£0.20'},{n:'Shallot & white wine',s:'Aldi',p:'£0.35'},{n:'Dill & lemon',s:'Aldi',p:'£0.25'}]
   }
 ];
@@ -1111,6 +1146,62 @@ const faqs = [
   {q:'How much does it cost?', a:'A free tier with 2 recipes per week will always be available. The full experience — 5 recipes, all store comparisons, 500+ recipe archive — will be less than the cost of one coffee per week.'},
   {q:'Can I cancel any time?', a:'Yes, always. No contracts, no exit fees, no dark patterns. We want you to stay because MISE is worth it — not because leaving is difficult.'},
 ];
+
+/* ─── MODAL LOGIC ─── */
+const modal = document.getElementById('modal');
+
+function openModal(emoji, name, sub, index) {
+  const recipe = recipes[index];
+  
+  // 1. Fill in the header details
+  document.getElementById('mEmoji').textContent = emoji;
+  document.getElementById('mTitle').textContent = name;
+  document.getElementById('mSub').textContent = sub;
+
+  // 2. Clear and fill the Steps (Method)
+  const methodContainer = document.getElementById('mMethod');
+  methodContainer.innerHTML = ''; // Clear previous content
+  recipe.steps.forEach((step, i) => {
+    methodContainer.innerHTML += `
+      <div class="method-step">
+        <span class="mn">${i + 1}</span>
+        <p>${step}</p>
+      </div>`;
+  });
+
+  // 3. Clear and fill the Ingredients
+  const ingContainer = document.getElementById('mIngs');
+  ingContainer.innerHTML = ''; // Clear previous content
+  recipe.ings.forEach(ing => {
+    ingContainer.innerHTML += `
+      <div class="ing-row">
+        <span class="ing-n">${ing.n}</span>
+        <span class="ing-s">${ing.s}</span>
+        <span class="ing-p">${ing.p}</span>
+      </div>`;
+  });
+
+  // 4. Show the modal
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden'; // Stop the background from scrolling
+}
+
+function closeModal() {
+  modal.classList.remove('open');
+  document.body.style.overflow = ''; // Re-enable scrolling
+}
+
+// Close modal if user clicks the dark background instead of the "X"
+window.onclick = function(event) {
+  if (event.target == modal) {
+    closeModal();
+  }
+}
+
+function joinFromModal() {
+  closeModal();
+  window.location.href = '#cta';
+}
 
 /* ─── MARQUEE ─── */
 const strip = document.getElementById('stripTrack');
