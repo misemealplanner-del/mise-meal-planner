@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recipes — MISE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --c:   #0E1208; --c2:  #1B2612; --a:   #D4622A;
+  --cr:  #F9F5EC; --cr2: #F1EBD8; --cr3: #E4DAC3; --mu:  #7A7060;
+}
+
+body { background: var(--cr); color: var(--c); font-family: 'Instrument Sans', sans-serif; margin: 0; line-height: 1.6; }
+
+/* Navigation */
+nav {
+  position: sticky; top: 0; z-index: 800;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 5%;
+  background: rgba(249,245,236,.96);
+  border-bottom: 1px solid var(--cr3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-weight: 700;
+  color: var(--c); text-decoration: none;
+  letter-spacing: .08em;
+}
+.nav-logo sup {
+  font-size: .5rem; vertical-align: super;
+  color: var(--a); letter-spacing: .2em;
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 600; text-transform: uppercase;
+  margin-left: .2rem;
+}
+.nav-right { display: flex; align-items: center; gap: 2rem; }
+.nav-link {
+  font-size: .75rem; font-weight: 500; letter-spacing: .08em;
+  color: var(--mu); text-decoration: none;
+  text-transform: uppercase; transition: color .2s;
+}
+.nav-link:hover { color: var(--c); }
+.nav-link.active { color: var(--c); }
+.nav-cta {
+  background: var(--c); color: var(--cr);
+  font-size: .7rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; padding: .65rem 1.5rem;
+  border-radius: 2px; text-decoration: none; border: none;
+  cursor: pointer; font-family: 'Instrument Sans', sans-serif;
+  transition: background .2s, color .2s;
+}
+.nav-cta:hover { background: var(--c2); }
+
+/* Mobile nav */
+.menu-container {
+  display: flex; align-items: center; gap: 2rem;
+}
+.mobile-menu-toggle {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 5px;
+}
+.mobile-menu-toggle span {
+  display: block; width: 22px; height: 2px; background-color: var(--c);
+}
+@media (max-width: 768px) {
+  .nav-right { gap: 1rem; }
+  .mobile-menu-toggle { display: flex; order: 2; }
+  .nav-cta { order: 1; }
+  .menu-container {
+    display: none; position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; background: var(--cr);
+    padding: 2rem; gap: 1.5rem;
+    border-bottom: 1px solid var(--cr3);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  }
+  .menu-container.active { display: flex !important; }
+}
+
+.container { max-width: 1100px; margin: 4rem auto; padding: 0 5%; }
+.heading { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 600; margin-bottom: 3rem; text-align: center; }
+
+/* Grid */
+#recipe-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2.5rem; }
+.recipe-card { background: #fff; border: 1px solid var(--cr3); border-radius: 4px; overflow: hidden; cursor: pointer; transition: 0.3s; position: relative; }
+.recipe-card:hover { transform: translateY(-8px); border-color: var(--c2); }
+.card-img { width: 100%; height: 240px; object-fit: cover; border-bottom: 1px solid var(--cr3); }
+.card-body { padding: 1.5rem; }
+.card-meta { font-size: 0.75rem; color: var(--mu); font-weight: 500; margin-bottom: 0.5rem; }
+.card-body h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; margin: 0; color: var(--c2); line-height: 1.2; }
+
+/* Tags */
+.tag-container { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.tag { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 3px 8px; background: var(--cr2); color: var(--c2); border-radius: 2px; border: 1px solid var(--cr3); }
+
+/* Modal */
+#modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(14,18,8,0.94); display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.3s; z-index: 1000; }
+#modal.open { opacity: 1; pointer-events: auto; }
+.modal-content { background: var(--cr); width: 95%; max-width: 800px; max-height: 90vh; overflow-y: auto; padding: 40px; position: relative; }
+.close-btn { position: absolute; top: 20px; right: 25px; font-size: 2.5rem; cursor: pointer; border: none; background: none; color: var(--mu); }
+
+#mHero { width: 100%; height: 380px; object-fit: cover; margin-bottom: 20px; }
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; border-top: 1px solid var(--cr3); padding-top: 2rem; margin-top: 3rem; }
+
+/* Steps & Ingredients */
+.method-step { display: grid; grid-template-columns: 35px 1fr; gap: 15px; margin-bottom: 20px; }
+.mn { width: 28px; height: 28px; background: var(--c2); color: #fff; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.75rem; font-weight: 600; }
+.ing-row { display: grid; grid-template-columns: 1.5fr 1fr 100px; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.06); font-size: 0.9rem; }
+.ing-name a { color: inherit; text-decoration: underline; text-decoration-color: var(--cr3); }
+.ing-name a:hover { color: var(--a); text-decoration-color: var(--a); }
+.ing-price { text-align: right; font-weight: 600; }
+
+.cta-box { display: block; background: var(--c2); color: white; text-align: center; padding: 1.5rem; text-decoration: none; font-weight: 600; margin-top: 3rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">MISE<sup>Coming Soon</sup></a>
+  <div class="menu-container" id="menuContainer">
+    <a href="index.html#how" class="nav-link">How It Works</a>
+    <a href="index.html#stores" class="nav-link">Pricing</a>
+    <a href="save-money-shopping.html" class="nav-link">Save Money</a>
+    <a href="recipys.html" class="nav-link active">Recipes</a>
+    <a href="index.html#faq" class="nav-link">FAQ</a>
+  </div>
+  <a href="index.html#cta" class="nav-cta">Join Waitlist</a>
+  <button class="mobile-menu-toggle" id="menuBtn">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="container">
+  <h1 class="heading">Weekly <em>Recipes</em></h1>
+  <div id="recipe-list"></div>
+</div>
+
+<div id="modal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal()">×</button>
+    <img id="mHero" src="">
+    <div id="mTags" class="tag-container" style="margin-bottom: 15px;"></div>
+    <div id="mMeta" class="card-meta" style="border-bottom: 1px solid var(--cr3); padding-bottom: 10px; margin-bottom: 15px;"></div>
+    <h1 id="mTitle" style="font-family:'Cormorant Garamond'; font-size: 3rem; margin: 0; line-height: 1.1;"></h1>
+    
+    <h3 class="section-title">The Chef Technique</h3>
+    <div id="mMethod"></div>
+
+    <h3 class="section-title">Ingredients & Prices</h3>
+    <div id="mIngs"></div>
+    <a href="index.html#cta" class="cta-box">Join Waitlist to Unlock All Recipes →</a>
+  </div>
+</div>
+
+<script src="recipes.js"></script>
+<script>
+function renderGrid() {
+  const container = document.getElementById('recipe-list');
+  container.innerHTML = '';
+  recipeData.forEach((r, index) => {
+    const tagsHtml = r.tags && r.tags.length > 0 
+      ? `<div class="tag-container">${r.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>` 
+      : '';
+
+    const card = document.createElement('div');
+    card.className = 'recipe-card';
+    card.onclick = () => openModal(index);
+    card.innerHTML = `
+      <img src="${r.image}" class="card-img">
+      <div class="card-body">
+        <div class="card-meta">${r.meta}</div>
+        <h3>${r.title}</h3>
+        ${tagsHtml}
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function openModal(index) {
+  const r = recipeData[index];
+  document.getElementById('mHero').src = r.image;
+  document.getElementById('mTitle').textContent = r.title;
+  document.getElementById('mMeta').textContent = r.meta;
+
+  const tagBox = document.getElementById('mTags');
+  tagBox.innerHTML = r.tags ? r.tags.map(t => `<span class="tag">${t}</span>`).join('') : '';
+
+  document.getElementById('mMethod').innerHTML = r.steps.map((s, i) => `
+    <div class="method-step"><div class="mn">${i+1}</div><p>${s}</p></div>
+  `).join('');
+
+  document.getElementById('mIngs').innerHTML = r.ingredients.map(i => `
+    <div class="ing-row">
+      <span class="ing-name">${i.url ? `<a href="${i.url}" target="_blank">${i.name}</a>` : i.name}</span>
+      <span style="color:var(--mu); font-size:0.8rem; text-transform:uppercase;">${i.store}</span>
+      <span class="ing-price">${i.price}</span>
+    </div>
+  `).join('');
+
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+window.onload = renderGrid;
+window.onclick = (e) => { if (e.target == document.getElementById('modal')) closeModal(); }
+</script>
+<script>
+  const btn = document.getElementById('menuBtn');
+  const navMenu = document.getElementById('menuContainer');
+  if (btn && navMenu) {
+    btn.addEventListener('click', function() {
+      navMenu.classList.toggle('active');
+      btn.style.opacity = navMenu.classList.contains('active') ? "0.5" : "1";
+    });
+  }
+</script>
+</body>
+</html>
