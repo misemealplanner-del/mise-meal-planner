@@ -683,64 +683,71 @@ footer { background: var(--c); padding: 4rem 6%; }
   .heading { font-size: 2rem; }
 }
 
-/* Container for the buttons */
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 2rem; /* Space between links */
 }
 
-/* Mobile Layout Tweaks */
+/* On Desktop: menu-container is just a row of links */
+.menu-container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* On Desktop: Hide the hamburger */
 .mobile-menu-toggle {
-  display: none; /* Hidden on desktop */
+  display: none;
   flex-direction: column;
   gap: 5px;
   background: none;
   border: none;
   cursor: pointer;
   padding: 5px;
-  z-index: 1001;
 }
 
 .mobile-menu-toggle span {
   display: block;
   width: 22px;
   height: 2px;
-  background-color: var(--c); /* Matches your 'deep ink' token */
-  transition: 0.3s;
+  background-color: var(--c);
 }
 
+/* --- Mobile Fixes (Small Screens Only) --- */
 @media (max-width: 768px) {
-  .nav-right { gap: 1rem; } /* Space between Join button and lines */
-  
-  .mobile-menu-toggle { display: flex; } /* Show lines on mobile */
+  .nav-right {
+    gap: 1rem; /* Tighter gap for mobile */
+  }
+
+  .mobile-menu-toggle {
+    display: flex; /* Show hamburger */
+    order: 2;      /* Moves it to the far right */
+  }
+
+  .nav-cta {
+    order: 1;      /* Keeps 'Join' to the left of hamburger */
+  }
 
   .menu-container {
-    display: none; /* Hidden by default */
+    display: none; /* Hide links on mobile initially */
     position: absolute;
-    top: 100%; 
+    top: 100%;
     left: 0;
     right: 0;
-    background: var(--cr);
     flex-direction: column;
+    background: var(--cr);
     padding: 2rem;
     gap: 1.5rem;
     border-bottom: 1px solid var(--cr3);
     box-shadow: 0 10px 20px rgba(0,0,0,0.05);
   }
 
-  /* This class is added by the script below */
+  /* This is what the JS toggles */
   .menu-container.active {
     display: flex !important;
   }
 }
-  
-  .nav-cta {
-    font-size: 0.75rem;
-    padding: 8px 15px;
-  }
-}
-
 </style>
 </head>
 <body>
@@ -767,19 +774,22 @@ footer { background: var(--c); padding: 4rem 6%; }
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">MISE<sup>Coming Soon</sup></a>
+  <div class="menu-container" id="menuContainer">
+    <a href="#how" class="nav-link">How It Works</a>
+    <a href="#stores" class="nav-link">Pricing</a>
+    <a href="save-money-shopping.html" class="nav-link">Save Money</a>
+    <a href="recipys.html" class="nav-link active">Recipes</a>
+    <a href="#faq" class="nav-link">FAQ</a>
+
+  </div>
+
   <a href="#cta" class="nav-cta">Join Waitlist</a>
   <button class="mobile-menu-toggle" id="menuBtn">
     <span></span>
     <span></span>
     <span></span>
   </button>
-  
-  <div class="menu-container" id="menuContainer">
-    <a href="#how" class="nav-link">How It Works</a>
-    <a href="#stores" class="nav-link">Pricing</a>
-    <a href="#faq" class="nav-link">FAQ</a>
-    <a href="save-money-shopping.html" class="nav-link">Save Money</a>
-  </div>
+
 </nav>
 
 <!-- HERO -->
