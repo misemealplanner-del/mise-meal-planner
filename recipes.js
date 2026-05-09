@@ -35,7 +35,7 @@ const recipeData = [
   {
     title: "The Perfect Poached Egg",
     image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800",
-    tags: ["Gluten Free", "High Protein"],
+    tags: [],
     meta: "8 min · Serves 1 · £0.70/serving",
     steps: [
       "The Technique: STRAINING — Crack the egg into a fine-mesh sieve first to remove the watery 'wispy' whites.",
