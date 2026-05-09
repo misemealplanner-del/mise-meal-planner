@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>How to Save Money Shopping — MISE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
   --ink: #1a1208;
@@ -301,8 +301,82 @@ footer {
 .wide-tip:nth-child(4) { animation-delay: .4s; }
 .wide-tip:nth-child(5) { animation-delay: .5s; }
 
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 800;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 5%;
+  background: rgba(249,245,236,.96);
+  border-bottom: 1px solid #e4dac3;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-weight: 700;
+  color: #0e1208; text-decoration: none;
+  letter-spacing: .08em;
+}
+.nav-logo sup {
+  font-size: .5rem; vertical-align: super;
+  color: #d4622a; letter-spacing: .2em;
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 600; text-transform: uppercase;
+  margin-left: .2rem;
+}
+.nav-right { display: flex; align-items: center; gap: 2rem; }
+.nav-link {
+  font-size: .75rem; font-weight: 500; letter-spacing: .08em;
+  color: #7a7060; text-decoration: none;
+  text-transform: uppercase; transition: color .2s;
+}
+.nav-link:hover { color: #0e1208; }
+.nav-link.active { color: #2e4220; font-weight: 600; }
+.nav-cta {
+  background: #0e1208; color: #f9f5ec;
+  font-size: .7rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; padding: .65rem 1.5rem;
+  border-radius: 2px; text-decoration: none; border: none;
+  cursor: pointer; font-family: 'Instrument Sans', sans-serif;
+  transition: background .2s, color .2s;
+}
+.nav-cta:hover { background: #1b2612; }
+.menu-container { display: flex; align-items: center; gap: 2rem; }
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+.mobile-menu-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: #0e1208;
+}
+body { padding-top: 64px; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
+  .nav-right { gap: 1rem; }
+  .mobile-menu-toggle { display: flex; order: 2; }
+  .nav-cta { order: 1; }
+  .menu-container {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0; right: 0;
+    flex-direction: column;
+    background: #f9f5ec;
+    padding: 2rem;
+    gap: 1.5rem;
+    border-bottom: 1px solid #e4dac3;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  }
+  .menu-container.active { display: flex !important; }
   .hero { grid-template-columns: 1fr; gap: 2.5rem; }
   .hero-side { border-left: none; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 2rem; flex-direction: row; flex-wrap: wrap; }
   .hero-stat { padding-bottom: 0; border: none; min-width: 120px; }
@@ -320,15 +394,23 @@ footer {
 </head>
 <body>
 
-<!-- MISE NAV -->
-<nav style="position:sticky;top:0;z-index:800;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 5%;background:rgba(249,245,236,.96);border-bottom:1px solid rgba(212,190,155,.25);backdrop-filter:blur(12px);">
-  <a href="index.html" style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#0e1208;text-decoration:none;letter-spacing:.08em;">MISE<sup style="font-size:.5rem;vertical-align:super;color:#c4622d;letter-spacing:.2em;font-family:'DM Sans',sans-serif;font-weight:600;text-transform:uppercase;margin-left:.2rem;">Coming Soon</sup></a>
-  <div style="display:flex;align-items:center;gap:2rem;">
-    <a href="index.html#how" style="font-size:.75rem;font-weight:500;letter-spacing:.08em;color:#7a6e5f;text-decoration:none;text-transform:uppercase;">How It Works</a>
-    <a href="index.html#stores" style="font-size:.75rem;font-weight:500;letter-spacing:.08em;color:#7a6e5f;text-decoration:none;text-transform:uppercase;">Pricing</a>
-    <a href="index.html#faq" style="font-size:.75rem;font-weight:500;letter-spacing:.08em;color:#7a6e5f;text-decoration:none;text-transform:uppercase;">FAQ</a>
-    <a href="save-money-shopping.html" style="font-size:.75rem;font-weight:600;letter-spacing:.08em;color:#3d5c3a;text-decoration:none;text-transform:uppercase;">Money Guide</a>
-    <a href="index.html#cta" style="background:#0e1208;color:#f9f5ec;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.65rem 1.5rem;border-radius:2px;text-decoration:none;">Join Waitlist</a>
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">MISE<sup>Coming Soon</sup></a>
+  <div class="menu-container" id="menuContainer">
+    <a href="index.html#how" class="nav-link">How It Works</a>
+    <a href="index.html#stores" class="nav-link">Pricing</a>
+    <a href="save-money-shopping.html" class="nav-link active">Save Money</a>
+    <a href="recipys.html" class="nav-link">Recipes</a>
+    <a href="index.html#faq" class="nav-link">FAQ</a>
+  </div>
+  <div class="nav-right">
+    <a href="index.html#cta" class="nav-cta">Join Waitlist</a>
+    <button class="mobile-menu-toggle" id="menuBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </nav>
 
@@ -608,5 +690,15 @@ footer {
   <span class="footer-note">© 2026 · For informational purposes · Prices are estimates based on UK averages</span>
 </footer>
 
+<script>
+  const btn = document.getElementById('menuBtn');
+  const nav = document.getElementById('menuContainer');
+  if (btn && nav) {
+    btn.addEventListener('click', function() {
+      nav.classList.toggle('active');
+      btn.style.opacity = nav.classList.contains('active') ? "0.5" : "1";
+    });
+  }
+</script>
 </body>
 </html>
